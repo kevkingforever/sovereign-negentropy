@@ -1,0 +1,36 @@
+Run record
+UTC time: 2026-10-29T23:30:01Z
+Python: Python 3.13.18
+numpy 2.5.3 | scipy 1.18.1 | sympy 1.14.0
+Script SHA256: cd4881bcccfa0ac60cbcd125712eea51767f86ef27e0c8a1123458913679b0f4
+-----
+PASS | C1a [Abstract; Sec 3.1 net effective value] original abstract form differs from the integral form | original=0.55870 corrected=0.06163
+PASS | C1b [Abstract; Sec 3.1 net effective value] corrected form satisfies dC/dt = -alpha*C | residual=6.65e-12
+PASS | C1c [Abstract; Sec 3.1 net effective value] original form does NOT satisfy dC/dt = -alpha*C | residual=0.3170
+PASS | C2a [Prop 1 Velocity Friction Core] friction term tends to 0 as v grows | friction term for v=1,10,100,1e6: 3.00e+00, 3.00e-01, 3.00e-02, 3.00e-06
+PASS | C2b [Prop 1 Velocity Friction Core] total S_E tends to the Shannon baseline, not to 0 | baseline H_A=1.2206
+PASS | C3a [Prop 3 Retention threshold, Assumption 1] Delta(R) is strictly increasing on the grid
+PASS | C3b [Prop 3 Retention threshold, Assumption 1] stagnant node has Delta(0) < 0 | Delta(0)=-0.1920
+PASS | C3c [Prop 3 Retention threshold, Assumption 1] active node has Delta(200) > 0 | Delta(200)=0.1266
+PASS | C3d [Prop 3 Retention threshold, Assumption 1] unique threshold R* exists | R*=2.1829
+PASS | C3e [Prop 3 Retention threshold, Assumption 1] monotonicity holds for 200 random parameter sets
+PASS | C4a [Prop 4 Retention against exit] stay/leave rule matches direct comparison | T=1:stay T=5:stay T=10:stay T=20:stay T=24:stay T=26:leave T=30:leave T=100:leave
+PASS | C4b [Prop 4 Retention against exit] crossover horizon T* = F_ext/(r_ext - d_bar), and both options tie there | T*=25.000000
+PASS | C5 [Prop 5 Path independence of yield] line integral equals V(end) - V(start) on two different paths | straight=3.645781 curved=3.645781 delta V=3.645781
+PASS | C6a [Prop 6 Regulator bounds; earlier form of Sec 4.3] original goes negative above saturation | Q(1.5,1)=-0.7619
+PASS | C6b [Prop 6 Regulator bounds; earlier form of Sec 4.3] original grows without bound with velocity | Q(0,50)=5.484e+10
+PASS | C6c [Prop 6 Regulator bounds; earlier form of Sec 4.3] corrected form stays within [0, Q0*tanh(1)*eta_max] | min=0.0000 max=2.2848 cap=2.2848
+PASS | C7a [Prop 7 Bounded impulse absorption] pulse energy equals J0^2/w and diverges as w goes to 0 | w=1: 1.0; w=0.1: 10.0; w=0.01: 100.0; w=0.001: 1000.0
+PASS | C7b [Prop 7 Bounded impulse absorption] minimum absorbable width w_min = xi*J0^2/E_idle | w_min=0.01
+PASS | C8a [Prop 8 Velocity incentive; Prop 9 Revenue adequacy] fee is zero at v=vmax, b=0
+PASS | C8b [Prop 8 Velocity incentive; Prop 9 Revenue adequacy] fee at v=0, b=bmax equals G0*(1+mu*bmax), not G0+mu*b | fee=0.001500
+PASS | C8c [Prop 8 Velocity incentive; Prop 9 Revenue adequacy] fee is strictly decreasing in velocity (rate rises when velocity falls) | fee(0.2)=0.000700 fee(0.8)=0.000400
+PASS | C8d [Prop 8 Velocity incentive; Prop 9 Revenue adequacy] taxed turnover needed for 20 percent of GDP at 0.05 percent is 400x GDP | need=400.0
+PASS | C9a [Sec 8.2 sign and bound of the KL term] KL(P||uniform) never exceeds ln(n) | max=2.0794 ln(n)=2.0794
+PASS | C9b [Sec 8.2 sign and bound of the KL term] +KL is minimised by the uniform (chaos) distribution | min sampled KL=0.00728
+PASS | C9c [Sec 8.2 sign and bound of the KL term] minimising +KL drives entropy up to ln(n) (original sign pulls toward chaos) | entropy=2.0794
+PASS | C9d [Sec 8.2 sign and bound of the KL term] minimising -KL drives entropy down (corrected sign pushes away from chaos) | entropy=0.0000
+PASS | C10 [Prop 11 Bounded excess risk] excess clean risk stays below 8*eps*B^2 (constant predictor, worst case corruption) | largest ratio excess/bound=0.0400
+PASS | C11 [Prop 10 Convergence of decentralized descent] J(u_m) - J* <= ||u0 - u*||^2 / (2 eta m) for 200 steps | L=15.247
+
+28 of 28 checks passed

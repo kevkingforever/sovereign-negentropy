@@ -1,0 +1,27 @@
+Run record
+UTC time: 2026-10-29T23:30:02Z
+Python: Python 3.13.18
+numpy 2.5.3 | scipy 1.18.1 | sympy 1.14.0
+Script SHA256: 0c1f633a3d1b833a7552239ed54ecffe1f49de64b9dbcc571d6578bc0b44cd21
+-----
+PASS | S1a [Abstract; Sec 3.1] corrected decay solves dC/dt = -alpha*C for every alpha(t) | residual=0
+PASS | S1b [Abstract] earlier decay form leaves residual -t*alpha'(t)*C, zero only if alpha is constant | residual=-C0*t*exp(-t*alpha(t))*Derivative(alpha(t), t)
+PASS | S2a [Prop 8 (i)] d(fee)/dv = -Gamma0/vmax
+PASS | S2b [Prop 8 (ii)] fee is zero at v = vmax, b = 0
+PASS | S2c [Prop 8 (iii)] fee at v = 0 is Gamma0*(1 + mu*b), not Gamma0 + mu*b
+PASS | S3a [Prop 7] pulse energy equals xi*J0^2/w | energy=J0**2*xi/w
+PASS | S3b [Prop 7] minimum absorbable width is xi*J0^2/E_idle | solution=[J0**2*xi/E_idle]
+PASS | S3c [Prop 7] required energy diverges as the pulse width goes to 0
+PASS | S4 [Sec 8.2] D_KL(P || uniform) = ln n - H(P) for n = 4, with the probabilities summing to 1
+PASS | S5 [Def of yield; Prop 5] dV_c/dC along the path equals dV/dC + sum_k (dV/df_k)(df_k/dC)
+PASS | S6a [Prop 4] staying beats leaving iff Dbar > r_ext - F_ext/T (algebraic identity)
+PASS | S6b [Prop 4] crossover horizon T* = F_ext/(r_ext - Dbar) | solution=[-F_ext/(Dbar - r_ext)]
+PASS | S7 [Prop 3 proof] d(Delta)/dR_a equals the expression printed in the paper (branch Y < Y*)
+PASS | S8a [Prop 11 proof] R_eps - R_0 = eps*(R_c - R_0)
+PASS | S8b [Prop 11 proof] the three bracketed terms telescope to R0(Phi_eps) - R0(Phi_0)
+PASS | S8c [Prop 11 proof] on [0, 4B^2]^2 the largest |eps*(R_c - R_0)| is 4*eps*B^2 (linear map, extremes at corners)
+PASS | S9 [Prop 9] 20 percent of GDP at a 0.05 percent fee needs taxed turnover of 400 times GDP | nu_required=400
+PASS | S10a [Prop 6] d/dx tanh(x) = 1 - tanh(x)^2 = 1/cosh(x)^2 > 0
+PASS | S10b [Prop 6] tanh(0) = 0 so Q = 0 at saturation, and tanh(1) < 1 bounds the factor | tanh(1)=0.761594
+
+19 of 19 symbolic checks passed
