@@ -71,3 +71,4 @@ The pre registration (version 1.1) was registered publicly on OSF Registries on 
 
 * Registration: https://osf.io/w6uan/
 * DOI: https://doi.org/10.17605/OSF.IO/W6UAN
+* Archive: https://doi.org/10.5281/zenodo.23869943
