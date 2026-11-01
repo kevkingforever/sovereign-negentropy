@@ -8,7 +8,7 @@ Version: 1.1. It supersedes version 1.0, which is kept unchanged in the archive 
 
 Date of this version: 2 November 2026
 
-Data access statement: no dataset named in Section 5 or Section 8 or Section 9 has been accessed or analysed for this registration or for version 1.0. The author makes this statement as at 2 November 2026.
+Data access statement: no data file or series named in Sections 5, 8, 9 or 10 has been downloaded, opened or analysed for this registration or for version 1.0. The author has read the providers’ public descriptions of the datasets and is aware of the general public reporting on the 2020 growth shock, the 2022 inflation shock and the repeal of the Electronic Transfer Levy. The author makes this statement as at 2 November 2026.
 
 ## 1. Purpose and scope
 
