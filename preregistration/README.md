@@ -27,3 +27,10 @@ Before any validation or test data are loaded, a dated amendment records exact f
 ## Reporting
 
 The results of every registered test are published in this repository within 30 days of completing the analysis, whatever the outcome.
+
+## Registration
+
+The pre registration (version 1.1) was registered publicly on OSF Registries on 1 November 2026.
+
+* Registration: https://osf.io/w6uan/
+* DOI: https://doi.org/10.17605/OSF.IO/W6UAN
