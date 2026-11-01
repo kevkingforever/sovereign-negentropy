@@ -64,3 +64,10 @@ The code, including the programs in the verification folder, is licensed under t
 ## Tools and assistance
 
 This work was developed by Kevin Ansong with AI assistance (Claude, by Anthropic) for drafting, code and test construction. Kevin Ansong directs the project and is responsible for every claim. All code, tests and results are open and can be rerun by anyone.
+
+## Registration
+
+The pre registration (version 1.1) was registered publicly on OSF Registries on 1 November 2026.
+
+* Registration: https://osf.io/w6uan/
+* DOI: https://doi.org/10.17605/OSF.IO/W6UAN
