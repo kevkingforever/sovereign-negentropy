@@ -60,3 +60,7 @@ The code, including the programs in the verification folder, is licensed under t
 * docs/: the Technical Annex describing the Phase 1 pilot.
 * telemetry/: the Phase 1 reference pipeline, its self checks, the lock benchmark and the saved results.
 * verification/: the 47 offline checks of the paper's mathematics.
+
+## Tools and assistance
+
+This work was developed by Kevin Ansong with AI assistance (Claude, by Anthropic) for drafting, code and test construction. Kevin Ansong directs the project and is responsible for every claim. All code, tests and results are open and can be rerun by anyone.
