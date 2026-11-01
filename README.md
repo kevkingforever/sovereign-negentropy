@@ -9,6 +9,7 @@ Author: Kevin Ansong, independent researcher. Edition: October 2026.
 * This is a working paper. It has not yet been independently reviewed.
 * It proposes a framework and states testable hypotheses. It reports no empirical results.
 * The mathematics has been checked for internal consistency (see verification below). That is a check on the algebra and logic, not on whether the economics works.
+* The first empirical tests are pre registered (see the preregistration folder). No test has been run and no result is reported.
 
 ## What is in this repository
 
@@ -18,6 +19,9 @@ Author: Kevin Ansong, independent researcher. Edition: October 2026.
 * verification/outputs/: saved output of one run of each program, with date, software versions and script hash.
 * verification/VERIFICATION.md: a map from every check to the statement in the paper it supports, including what no check covers and a record of the failures found along the way.
 * verification/requirements.txt: Python packages needed to rerun the checks.
+* preregistration/: the pre registration of the first empirical tests (version 1.1), the archived version 1.0, a deviations log and registration instructions.
+* CONTRIBUTING.md and REVIEWERS.md: how to take part in review, and who has reviewed.
+* LICENSE: the MIT licence for the code. The paper has its own licence (see the end of this file).
 
 The paper itself contains no code. The code is separate so it can be reviewed, run and extended independently.
 
@@ -26,7 +30,7 @@ The paper itself contains no code. The code is separate so it can be reviewed, r
 * Chapters 2 to 5 are the economic core: a friction entropy index, a demurrage currency with a utility offset, a path independent yield, and a velocity fee. Their propositions use no result from Chapters 6 to 9.
 * Chapter 10 is the parallel entry strategy: voluntary participation, interoperation with legacy rails, regulators inside from day one, three gated phases and stop conditions.
 * Chapters 4 and 6 to 9 describe supporting infrastructure and sector applications. Their engineering claims are design targets to be benchmarked, not results.
-* Appendix A is the notation table with units. Appendix B records every change from the earlier draft, with the reason. Appendix C lists each hypothesis with the test that would confirm or refute it.
+* Appendix A is the notation table with units. Appendix B records every change from the earlier draft, with the reason. Appendix C lists each hypothesis with the test that would confirm or refute it. Appendix D gives the entropy index a measurement rule and summarises the registered tests.
 
 ## Verification in brief
 
@@ -40,6 +44,19 @@ To rerun: install Python, run pip install numpy scipy sympy, then run python3 ve
 4. Is the revenue adequacy result (a 0.05 percent fee funds 20 percent of GDP only at taxed turnover of 400 times GDP) stated correctly, and what turnover ratios do real payment systems show?
 5. The paper models one jurisdiction. Cross border settlement, exchange rates, and interaction with central bank policy are not modelled. What is the minimum needed to support a global claim?
 6. Does the paper position itself correctly against prior work on demurrage currencies, velocity of money, and transaction cost economics? A literature review is not yet included.
+7. Appendix D defines the entropy from the latency distribution of completed transactions. Is that a sensible operational definition, and can the registered test S1 fail?
 
-## License
-This work is licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/
+## Licences
+
+The paper is licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/
+
+The code, including the programs in the verification folder, is licensed under the MIT licence. See the LICENSE file.
+
+
+## Repository layout
+
+* paper/: the working paper, source and PDF, including Appendix D.
+* preregistration/: the registered tests (version 1.1), the deviations log and the archived version 1.0.
+* docs/: the Technical Annex describing the Phase 1 pilot.
+* telemetry/: the Phase 1 reference pipeline, its self checks, the lock benchmark and the saved results.
+* verification/: the 47 offline checks of the paper's mathematics.

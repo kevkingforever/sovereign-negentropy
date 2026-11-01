@@ -1,0 +1,630 @@
+{
+ "meta": {
+  "postgres": "PostgreSQL 16.14 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit",
+  "python": "3.13.18",
+  "cpus": 2,
+  "args": {
+   "reps": 5,
+   "duration": 30.0,
+   "warm": 3.0,
+   "rate": 800.0,
+   "writers": 4,
+   "hold_ms": 150.0,
+   "poll_s": 1.0,
+   "conds": "baseline,pipeline,blocking_control",
+   "out": "results/locks_raw.json",
+   "pgdir": ""
+  },
+  "note": "single shared container, synthetic workload"
+ },
+ "runs": [
+  {
+   "condition": "blocking_control",
+   "rep": 0,
+   "tx_committed": 26391,
+   "p50_ms": 0.8380313113320881,
+   "p95_ms": 121.02881561440881,
+   "p99_ms": 155.28642551680605,
+   "p999_ms": 162.9806259927591,
+   "max_ms": 168.40154435385557,
+   "throughput_tx_s": 799.7272727272727,
+   "lock_wait_samples": {
+    "relation": 242,
+    "transactionid": 111,
+    "tuple": 16
+   },
+   "sampler_ticks": 736,
+   "deadlocks_db": 0,
+   "deadlocks_writers": 0,
+   "events_written": 131955,
+   "reader": {
+    "events_consumed": 131955,
+    "polls": 33,
+    "locks_held_by_reader": {
+     "relation:AccessShareLock": 3,
+     "relation:ShareLock": 1,
+     "virtualxid:ExclusiveLock": 1
+    },
+    "cpu_seconds": 0.17,
+    "max_rss_mb": 34.65625,
+    "anomalies": 0,
+    "open_transactions_at_end": 0
+   }
+  },
+  {
+   "condition": "baseline",
+   "rep": 0,
+   "tx_committed": 26391,
+   "p50_ms": 0.782859230412214,
+   "p95_ms": 1.6274085128316074,
+   "p99_ms": 4.348957096226513,
+   "p999_ms": 34.042510114431934,
+   "max_ms": 43.949973164217226,
+   "throughput_tx_s": 799.7272727272727,
+   "lock_wait_samples": {
+    "transactionid": 20,
+    "tuple": 1
+   },
+   "sampler_ticks": 693,
+   "deadlocks_db": 0,
+   "deadlocks_writers": 0,
+   "events_written": 131955
+  },
+  {
+   "condition": "pipeline",
+   "rep": 0,
+   "tx_committed": 26391,
+   "p50_ms": 0.8126046702727763,
+   "p95_ms": 1.6091034340206534,
+   "p99_ms": 2.727969355191817,
+   "p999_ms": 6.57311484519596,
+   "max_ms": 14.435526047918756,
+   "throughput_tx_s": 799.7272727272727,
+   "lock_wait_samples": {
+    "transactionid": 11
+   },
+   "sampler_ticks": 719,
+   "deadlocks_db": 0,
+   "deadlocks_writers": 0,
+   "events_written": 131955,
+   "reader": {
+    "events_consumed": 131955,
+    "polls": 37,
+    "locks_held_by_reader": {
+     "relation:AccessShareLock": 3,
+     "virtualxid:ExclusiveLock": 1
+    },
+    "cpu_seconds": 0.17,
+    "max_rss_mb": 49.93359375,
+    "anomalies": 0,
+    "open_transactions_at_end": 0
+   },
+   "recovery": {
+    "complete_transactions": 26391,
+    "stage_statistics": {
+     "authentication": {
+      "pipeline_p50": 0.04869675251658631,
+      "exact_p50": 0.050029754638671875,
+      "true_p50": 0.05,
+      "pipeline_p99": 0.1295686697517019,
+      "exact_p99": 0.12775015830993652,
+      "true_p99": 0.12679380128516346
+     },
+     "routing_transit": {
+      "pipeline_p50": 0.19386526359522077,
+      "exact_p50": 0.1987776756286621,
+      "true_p50": 0.2,
+      "pipeline_p99": 0.6493816315762114,
+      "exact_p99": 0.6324625015258789,
+      "true_p99": 0.6400148015885925
+     },
+     "clearing_wait": {
+      "pipeline_p50": 0.8175230379436501,
+      "exact_p50": 0.802574872970581,
+      "true_p50": 0.8,
+      "pipeline_p99": 4.097321098135414,
+      "exact_p99": 4.10006856918335,
+      "true_p99": 4.076749421733964
+     },
+     "settlement_confirmation": {
+      "pipeline_p50": 0.1539926526059492,
+      "exact_p50": 0.15050745010375977,
+      "true_p50": 0.15,
+      "pipeline_p99": 0.38681205463305207,
+      "exact_p99": 0.37859272956848145,
+      "true_p99": 0.3803814038554903
+     }
+    },
+    "worst_relative_error_vs_exact": 0.02675119870271112,
+    "worst_p99_relative_error_vs_analytic": 0.02188489057361457,
+    "completeness": 1.0
+   }
+  },
+  {
+   "condition": "baseline",
+   "rep": 1,
+   "tx_committed": 26402,
+   "p50_ms": 0.8327256055054022,
+   "p95_ms": 1.5945717825616157,
+   "p99_ms": 2.5539366106386296,
+   "p999_ms": 5.733242991254883,
+   "max_ms": 17.302119475061772,
+   "throughput_tx_s": 800.060606060606,
+   "lock_wait_samples": {
+    "transactionid": 13
+   },
+   "sampler_ticks": 694,
+   "deadlocks_db": 0,
+   "deadlocks_writers": 0,
+   "events_written": 132010
+  },
+  {
+   "condition": "pipeline",
+   "rep": 1,
+   "tx_committed": 26402,
+   "p50_ms": 0.8457673334305582,
+   "p95_ms": 1.679021680047299,
+   "p99_ms": 3.266794758701508,
+   "p999_ms": 10.182989631402961,
+   "max_ms": 34.001809914116166,
+   "throughput_tx_s": 800.060606060606,
+   "lock_wait_samples": {
+    "transactionid": 9
+   },
+   "sampler_ticks": 721,
+   "deadlocks_db": 0,
+   "deadlocks_writers": 0,
+   "events_written": 132010,
+   "reader": {
+    "events_consumed": 132010,
+    "polls": 37,
+    "locks_held_by_reader": {
+     "relation:AccessShareLock": 3,
+     "virtualxid:ExclusiveLock": 1
+    },
+    "cpu_seconds": 0.2,
+    "max_rss_mb": 54.953125,
+    "anomalies": 0,
+    "open_transactions_at_end": 0
+   },
+   "recovery": {
+    "complete_transactions": 26402,
+    "stage_statistics": {
+     "authentication": {
+      "pipeline_p50": 0.04869675251658631,
+      "exact_p50": 0.05002260208129883,
+      "true_p50": 0.05,
+      "pipeline_p99": 0.12232071190499313,
+      "exact_p99": 0.125701904296875,
+      "true_p99": 0.12679380128516346
+     },
+     "routing_transit": {
+      "pipeline_p50": 0.20535250264571459,
+      "exact_p50": 0.20006132125854492,
+      "true_p50": 0.2,
+      "pipeline_p99": 0.6493816315762114,
+      "exact_p99": 0.6398122310638428,
+      "true_p99": 0.6400148015885925
+     },
+     "clearing_wait": {
+      "pipeline_p50": 0.8175230379436501,
+      "exact_p50": 0.8016371726989746,
+      "true_p50": 0.8,
+      "pipeline_p99": 4.097321098135414,
+      "exact_p99": 4.00584602355957,
+      "true_p99": 4.076749421733964
+     },
+     "settlement_confirmation": {
+      "pipeline_p50": 0.1539926526059492,
+      "exact_p50": 0.14995956420898438,
+      "true_p50": 0.15,
+      "pipeline_p99": 0.38681205463305207,
+      "exact_p99": 0.38086795806884766,
+      "true_p99": 0.3803814038554903
+     }
+    },
+    "worst_relative_error_vs_exact": 0.02689849776576474,
+    "worst_p99_relative_error_vs_analytic": 0.035278454741728256,
+    "completeness": 1.0
+   }
+  },
+  {
+   "condition": "blocking_control",
+   "rep": 1,
+   "tx_committed": 26402,
+   "p50_ms": 0.9108439212468511,
+   "p95_ms": 122.3396117802622,
+   "p99_ms": 155.24395420629844,
+   "p999_ms": 163.87901279381367,
+   "max_ms": 166.94713349579615,
+   "throughput_tx_s": 800.060606060606,
+   "lock_wait_samples": {
+    "relation": 225,
+    "transactionid": 119,
+    "tuple": 19
+   },
+   "sampler_ticks": 738,
+   "deadlocks_db": 0,
+   "deadlocks_writers": 0,
+   "events_written": 132010,
+   "reader": {
+    "events_consumed": 132010,
+    "polls": 33,
+    "locks_held_by_reader": {
+     "relation:AccessShareLock": 3,
+     "relation:ShareLock": 1,
+     "virtualxid:ExclusiveLock": 1
+    },
+    "cpu_seconds": 0.2,
+    "max_rss_mb": 58.2734375,
+    "anomalies": 0,
+    "open_transactions_at_end": 0
+   }
+  },
+  {
+   "condition": "pipeline",
+   "rep": 2,
+   "tx_committed": 26272,
+   "p50_ms": 0.769829007140288,
+   "p95_ms": 1.489732501340768,
+   "p99_ms": 2.451693585499015,
+   "p999_ms": 4.786558306250299,
+   "max_ms": 10.835893593366563,
+   "throughput_tx_s": 796.1212121212121,
+   "lock_wait_samples": {
+    "transactionid": 14,
+    "tuple": 1
+   },
+   "sampler_ticks": 720,
+   "deadlocks_db": 0,
+   "deadlocks_writers": 0,
+   "events_written": 131360,
+   "reader": {
+    "events_consumed": 131360,
+    "polls": 37,
+    "locks_held_by_reader": {
+     "relation:AccessShareLock": 3,
+     "virtualxid:ExclusiveLock": 1
+    },
+    "cpu_seconds": 0.17,
+    "max_rss_mb": 59.89453125,
+    "anomalies": 0,
+    "open_transactions_at_end": 0
+   },
+   "recovery": {
+    "complete_transactions": 26272,
+    "stage_statistics": {
+     "authentication": {
+      "pipeline_p50": 0.04869675251658631,
+      "exact_p50": 0.04987645149230957,
+      "true_p50": 0.05,
+      "pipeline_p99": 0.1295686697517019,
+      "exact_p99": 0.12806963920593262,
+      "true_p99": 0.12679380128516346
+     },
+     "routing_transit": {
+      "pipeline_p50": 0.19386526359522077,
+      "exact_p50": 0.1992959976196289,
+      "true_p50": 0.2,
+      "pipeline_p99": 0.6493816315762114,
+      "exact_p99": 0.6512753963470459,
+      "true_p99": 0.6400148015885925
+     },
+     "clearing_wait": {
+      "pipeline_p50": 0.8175230379436501,
+      "exact_p50": 0.7949597835540771,
+      "true_p50": 0.8,
+      "pipeline_p99": 4.097321098135414,
+      "exact_p99": 4.024840593338013,
+      "true_p99": 4.076749421733964
+     },
+     "settlement_confirmation": {
+      "pipeline_p50": 0.1539926526059492,
+      "exact_p50": 0.14968037605285645,
+      "true_p50": 0.15,
+      "pipeline_p99": 0.36517412725483767,
+      "exact_p99": 0.37519264221191406,
+      "true_p99": 0.3803814038554903
+     }
+    },
+    "worst_relative_error_vs_exact": 0.028809899245375713,
+    "worst_p99_relative_error_vs_analytic": 0.039979022230093,
+    "completeness": 1.0
+   }
+  },
+  {
+   "condition": "blocking_control",
+   "rep": 2,
+   "tx_committed": 26272,
+   "p50_ms": 0.8245241826898564,
+   "p95_ms": 118.51821029381426,
+   "p99_ms": 152.79225346694147,
+   "p999_ms": 161.51653483007067,
+   "max_ms": 164.75378076074776,
+   "throughput_tx_s": 796.1212121212121,
+   "lock_wait_samples": {
+    "relation": 251,
+    "transactionid": 132,
+    "tuple": 8
+   },
+   "sampler_ticks": 738,
+   "deadlocks_db": 0,
+   "deadlocks_writers": 0,
+   "events_written": 131360,
+   "reader": {
+    "events_consumed": 131360,
+    "polls": 33,
+    "locks_held_by_reader": {
+     "relation:AccessShareLock": 3,
+     "relation:ShareLock": 1,
+     "virtualxid:ExclusiveLock": 1
+    },
+    "cpu_seconds": 0.17,
+    "max_rss_mb": 62.9453125,
+    "anomalies": 0,
+    "open_transactions_at_end": 0
+   }
+  },
+  {
+   "condition": "baseline",
+   "rep": 2,
+   "tx_committed": 26272,
+   "p50_ms": 0.8094400552636216,
+   "p95_ms": 1.6572064710089762,
+   "p99_ms": 3.0828487431335816,
+   "p999_ms": 7.833152325474657,
+   "max_ms": 11.586389574404166,
+   "throughput_tx_s": 796.1212121212121,
+   "lock_wait_samples": {
+    "transactionid": 20,
+    "tuple": 1
+   },
+   "sampler_ticks": 694,
+   "deadlocks_db": 0,
+   "deadlocks_writers": 0,
+   "events_written": 131360
+  },
+  {
+   "condition": "pipeline",
+   "rep": 3,
+   "tx_committed": 26452,
+   "p50_ms": 0.7820058310699096,
+   "p95_ms": 1.5612612953646021,
+   "p99_ms": 2.7465839616525045,
+   "p999_ms": 7.415280664645252,
+   "max_ms": 12.131817580211646,
+   "throughput_tx_s": 801.5757575757576,
+   "lock_wait_samples": {
+    "transactionid": 8
+   },
+   "sampler_ticks": 720,
+   "deadlocks_db": 0,
+   "deadlocks_writers": 0,
+   "events_written": 132260,
+   "reader": {
+    "events_consumed": 132260,
+    "polls": 37,
+    "locks_held_by_reader": {
+     "relation:AccessShareLock": 3,
+     "virtualxid:ExclusiveLock": 1
+    },
+    "cpu_seconds": 0.18000000000000002,
+    "max_rss_mb": 62.953125,
+    "anomalies": 0,
+    "open_transactions_at_end": 0
+   },
+   "recovery": {
+    "complete_transactions": 26452,
+    "stage_statistics": {
+     "authentication": {
+      "pipeline_p50": 0.051582216507230556,
+      "exact_p50": 0.050161123275756836,
+      "true_p50": 0.05,
+      "pipeline_p99": 0.1295686697517019,
+      "exact_p99": 0.12900686264038086,
+      "true_p99": 0.12679380128516346
+     },
+     "routing_transit": {
+      "pipeline_p50": 0.20535250264571459,
+      "exact_p50": 0.2005767822265625,
+      "true_p50": 0.2,
+      "pipeline_p99": 0.6493816315762114,
+      "exact_p99": 0.6377708911895752,
+      "true_p99": 0.6400148015885925
+     },
+     "clearing_wait": {
+      "pipeline_p50": 0.8175230379436501,
+      "exact_p50": 0.7981479167938232,
+      "true_p50": 0.8,
+      "pipeline_p99": 4.097321098135414,
+      "exact_p99": 4.076112747192383,
+      "true_p99": 4.076749421733964
+     },
+     "settlement_confirmation": {
+      "pipeline_p50": 0.1539926526059492,
+      "exact_p50": 0.1502094268798828,
+      "true_p50": 0.15,
+      "pipeline_p99": 0.38681205463305207,
+      "exact_p99": 0.38176631927490234,
+      "true_p99": 0.3803814038554903
+     }
+    },
+    "worst_relative_error_vs_exact": 0.028330570343518265,
+    "worst_p99_relative_error_vs_analytic": 0.02188489057361457,
+    "completeness": 1.0
+   }
+  },
+  {
+   "condition": "blocking_control",
+   "rep": 3,
+   "tx_committed": 26452,
+   "p50_ms": 0.8869892858456296,
+   "p95_ms": 121.03598759745182,
+   "p99_ms": 155.7441498175649,
+   "p999_ms": 163.03121998794268,
+   "max_ms": 172.15090671402322,
+   "throughput_tx_s": 801.5757575757576,
+   "lock_wait_samples": {
+    "relation": 217,
+    "transactionid": 133,
+    "tuple": 14
+   },
+   "sampler_ticks": 736,
+   "deadlocks_db": 0,
+   "deadlocks_writers": 0,
+   "events_written": 132260,
+   "reader": {
+    "events_consumed": 132260,
+    "polls": 33,
+    "locks_held_by_reader": {
+     "relation:AccessShareLock": 3,
+     "relation:ShareLock": 1,
+     "virtualxid:ExclusiveLock": 1
+    },
+    "cpu_seconds": 0.18000000000000002,
+    "max_rss_mb": 65.3828125,
+    "anomalies": 0,
+    "open_transactions_at_end": 0
+   }
+  },
+  {
+   "condition": "baseline",
+   "rep": 3,
+   "tx_committed": 26452,
+   "p50_ms": 0.7505507867335837,
+   "p95_ms": 1.4517351044105453,
+   "p99_ms": 2.5146726229650085,
+   "p999_ms": 6.671525419278623,
+   "max_ms": 13.473801124064266,
+   "throughput_tx_s": 801.5757575757576,
+   "lock_wait_samples": {
+    "transactionid": 12
+   },
+   "sampler_ticks": 694,
+   "deadlocks_db": 0,
+   "deadlocks_writers": 0,
+   "events_written": 132260
+  },
+  {
+   "condition": "blocking_control",
+   "rep": 4,
+   "tx_committed": 26236,
+   "p50_ms": 0.7919808381302573,
+   "p95_ms": 118.32007474322381,
+   "p99_ms": 152.5805146327457,
+   "p999_ms": 161.4923340448513,
+   "max_ms": 164.58877426680374,
+   "throughput_tx_s": 795.030303030303,
+   "lock_wait_samples": {
+    "relation": 248,
+    "transactionid": 110,
+    "tuple": 14
+   },
+   "sampler_ticks": 738,
+   "deadlocks_db": 0,
+   "deadlocks_writers": 0,
+   "events_written": 131180,
+   "reader": {
+    "events_consumed": 131180,
+    "polls": 33,
+    "locks_held_by_reader": {
+     "relation:AccessShareLock": 3,
+     "relation:ShareLock": 1,
+     "virtualxid:ExclusiveLock": 1
+    },
+    "cpu_seconds": 0.17,
+    "max_rss_mb": 65.96875,
+    "anomalies": 0,
+    "open_transactions_at_end": 0
+   }
+  },
+  {
+   "condition": "baseline",
+   "rep": 4,
+   "tx_committed": 26236,
+   "p50_ms": 0.7810643380707916,
+   "p95_ms": 1.620813379304309,
+   "p99_ms": 2.915689793326237,
+   "p999_ms": 9.98777356676328,
+   "max_ms": 24.916807060208157,
+   "throughput_tx_s": 795.030303030303,
+   "lock_wait_samples": {
+    "transactionid": 7
+   },
+   "sampler_ticks": 694,
+   "deadlocks_db": 0,
+   "deadlocks_writers": 0,
+   "events_written": 131180
+  },
+  {
+   "condition": "pipeline",
+   "rep": 4,
+   "tx_committed": 26236,
+   "p50_ms": 0.8037144111767702,
+   "p95_ms": 1.7798676399252145,
+   "p99_ms": 3.7065356264065485,
+   "p999_ms": 8.55592040738884,
+   "max_ms": 19.067811439754223,
+   "throughput_tx_s": 795.030303030303,
+   "lock_wait_samples": {
+    "transactionid": 11
+   },
+   "sampler_ticks": 717,
+   "deadlocks_db": 0,
+   "deadlocks_writers": 0,
+   "events_written": 131180,
+   "reader": {
+    "events_consumed": 131180,
+    "polls": 37,
+    "locks_held_by_reader": {
+     "relation:AccessShareLock": 3,
+     "virtualxid:ExclusiveLock": 1
+    },
+    "cpu_seconds": 0.19,
+    "max_rss_mb": 65.9296875,
+    "anomalies": 0,
+    "open_transactions_at_end": 0
+   },
+   "recovery": {
+    "complete_transactions": 26236,
+    "stage_statistics": {
+     "authentication": {
+      "pipeline_p50": 0.051582216507230556,
+      "exact_p50": 0.050255775451660156,
+      "true_p50": 0.05,
+      "pipeline_p99": 0.1295686697517019,
+      "exact_p99": 0.12773561477661133,
+      "true_p99": 0.12679380128516346
+     },
+     "routing_transit": {
+      "pipeline_p50": 0.20535250264571459,
+      "exact_p50": 0.20044398307800293,
+      "true_p50": 0.2,
+      "pipeline_p99": 0.6493816315762114,
+      "exact_p99": 0.6488800048828125,
+      "true_p99": 0.6400148015885925
+     },
+     "clearing_wait": {
+      "pipeline_p50": 0.8175230379436501,
+      "exact_p50": 0.7982180118560791,
+      "true_p50": 0.8,
+      "pipeline_p99": 4.097321098135414,
+      "exact_p99": 4.115447998046875,
+      "true_p99": 4.076749421733964
+     },
+     "settlement_confirmation": {
+      "pipeline_p50": 0.14537843856076624,
+      "exact_p50": 0.14953970909118652,
+      "true_p50": 0.15,
+      "pipeline_p99": 0.38681205463305207,
+      "exact_p99": 0.3826899528503418,
+      "true_p99": 0.3803814038554903
+     }
+    },
+    "worst_relative_error_vs_exact": 0.027827194232956685,
+    "worst_p99_relative_error_vs_analytic": 0.02188489057361457,
+    "completeness": 1.0
+   }
+  }
+ ]
+}

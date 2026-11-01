@@ -56,6 +56,15 @@ These use the SymPy computer algebra system and hold for all values of the symbo
 * S9. Proposition 9. The 400 times arithmetic, exact.
 * S10a, S10b. Proposition 6. The hyperbolic tangent factor is increasing, zero at zero, and below 1.
 
+## What the programs are not
+
+* They are not a runtime control. They run offline, on a developer machine, and are not part of any payment, ledger or telemetry system. They do not validate, accept or reject transactions.
+* They do not simulate transaction traffic, load or surges.
+* They are not a security control. Preventing unauthorised state changes needs authentication, authorisation and ledger invariants. Nothing here provides them.
+* They are not a proof of the paper's economics. A PASS shows that a statement is not obviously wrong on the numbers or symbols tested.
+
+Any description of these programs in a proposal or presentation should say that they are offline checks of the paper's algebra.
+
 ## What no check covers
 
 * The strongly convex rate and the nonconvex gradient bound in Proposition 10.
@@ -71,3 +80,7 @@ These use the SymPy computer algebra system and hold for all values of the symbo
 ## External source cited in the paper
 
 Appendix C.2 cites a documentation page on zero knowledge proofs for Aptos Keyless, hosted at alinush.github.io/keyless-zkp, for the order of magnitude of proof verification time (about 1.1 to 1.3 milliseconds). That measurement was made by others, on a different circuit. It was not run or reproduced by the author or by these programs.
+
+## Pre registration
+
+The first empirical tests of the entropy index are pre registered in the preregistration folder. They are separate from these programs, which test the paper's mathematics only.

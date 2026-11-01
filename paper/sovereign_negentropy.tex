@@ -29,7 +29,7 @@
 \section*{Abstract}
 Abstract--- This thesis establishes a formal, non-equilibrium thermodynamic framework for macroeconomic engineering, defining systemic transaction latencies, data isolation, and institutional rent-seeking as a continuous accumulation of economic entropy ($S_E$). Many equilibrium-based economic models treat currency as a static metric and leave structural choke points unmodelled; these choke points sustain economic rent and are associated with systemic inflation and vulnerability to macroeconomic shocks. We propose a parallel sovereign cybernetic operating system---Sovereign Negentropy---anchored by three interdependent, protocol-driven substrates: a Programmatic Kinetic Finance Layer, a Decentralized Telemetry Infrastructure Network (DePIN), and a Unified Open-Source AI Grid. Using a dynamic, utility-yielding demurrage decay function, the nominal balance of a holder decays as $C_t = C_0\exp\!\big(-\int_0^t \alpha(\tau)\,d\tau\big)$ while a network utility yield $U_n$ offsets that decay for active nodes. We derive the conditions under which holding capital inside the network is more attractive than leaving it, and show that exit friction alone can sustain retention only for a finite horizon, so that lasting retention depends on the utility yield. Real-world physical validation is automated through an encrypted DePIN telemetry mesh using chip-level Trusted Execution Environments (TEEs); this raises the cost of spoofing physical data and reduces reliance on legacy legal or banking intermediaries, and the assumptions it requires are stated. The framework hypothesizes that a sovereign jurisdiction operating at low transactional and informational friction attracts productive capacity and reduces its exposure to external volatility; these are stated as testable hypotheses with defined metrics, not as established results. The system is designed to run in parallel with legacy financial and administrative systems, to interoperate with them, and to be joined voluntarily, so that adoption rests on a measured benefit to each participant.
 
-\paragraph{How to read this paper.} Each formal statement carries a status. A \emph{Definition} fixes notation and units. An \emph{Assumption} states a condition that a result needs. A \emph{Proposition} is a mathematical result, proved here under its stated assumptions. A \emph{Hypothesis} is an empirical claim to be tested against a named metric. A \emph{design target} is an engineering objective to be benchmarked, not a result. Appendix A lists notation, Appendix B records every change from the earlier draft, and Appendix C lists the hypotheses with their tests and the verification checks that were run. This edition has not yet been independently reviewed. The propositions of Chapters 2 to 5 use no result from Chapters 6 to 9, which describe supporting infrastructure and sector applications; their engineering claims are design targets to be benchmarked, not results.
+\paragraph{How to read this paper.} Each formal statement carries a status. A \emph{Definition} fixes notation and units. An \emph{Assumption} states a condition that a result needs. A \emph{Proposition} is a mathematical result, proved here under its stated assumptions. A \emph{Hypothesis} is an empirical claim to be tested against a named metric. A \emph{design target} is an engineering objective to be benchmarked, not a result. Appendix A lists notation, Appendix B records every change from the earlier draft, Appendix C lists the hypotheses with their tests and the verification checks that were run, and Appendix D gives the entropy index a measurement rule and summarises the registered tests. This edition has not yet been independently reviewed. The propositions of Chapters 2 to 5 use no result from Chapters 6 to 9, which describe supporting infrastructure and sector applications; their engineering claims are design targets to be benchmarked, not results.
 
 %==============================================================================
 \clearpage
@@ -702,6 +702,7 @@ Notation (second pass) & $\Theta_I$ and $\Theta$; $\eta$ and $\eta_{\max}$; $\la
 10 & Fixed 180 day plan; subjugation; mandated APIs; entropy fee; tax abolished on day 121; $F_i$ used for a tax & Parallel Entry Strategy and Pilot Playbook: design principles, reason to join, three gated phases, stop conditions & Voluntary, interoperating, reversible, measured; existing taxes untouched. \\
 How to read; C.2; C.3 (final pass) & Verification described as tests of the paper's economics; C.2 read as if the author had tested proof speed; fixed proposition numbers in this log & Status sentences added; C.2 states the benchmark is external and not reproduced; C.3 lists the files and what each does and does not show; log numbers are now automatic references & Avoid implying evidence the paper does not have; five proposition numbers in this log were off by one. \\
 Layout (final pass) & Chapters ran on & Each chapter and appendix starts a new page & Thesis convention. \\
+Appendix D (new, 31 October 2026) & Not present; $p_i$ in Definition 2 had no measurement rule & Operational definition of the entropy input from transaction logs; summary of registered tests S1 to S3 & A reviewer asked for a measurable definition and a falsifiable test. The registration was amended before any data access. \\
 \bottomrule
 \end{longtable}
 
@@ -747,5 +748,31 @@ Two short Python programs accompany this paper. They are separate files and are 
 All 28 numerical and all 19 symbolic checks passed in the saved runs. Neither program reads the paper or uses the internet or any AI; the formulas are typed into the programs by hand, so a reader should compare them with the paper using the map in \texttt{VERIFICATION.md}. To rerun: install Python, run \texttt{pip install numpy scipy sympy}, then run \texttt{python3 verify\_checks.py} and \texttt{python3 verify\_symbolic.py}. They also run in Google Colab.
 
 What the checks establish: each statement is consistent on worked examples and random samples, and each displayed algebraic identity holds exactly. What they do not establish: that the economics works in a real economy, that the modelling assumptions are right, or that the proofs are complete in every case. Examples cannot prove a theorem; the proofs in the text do that, and a mathematician should read them. A passing check shows that a statement is not obviously wrong, nothing more.
+
+\clearpage
+\begingroup\hyphenpenalty=10000 \exhyphenpenalty=10000 \tolerance=9999 \emergencystretch=3em
+\section*{Appendix D: Operational Definition of the Entropy Index and Registered Tests}
+Added 31 October 2026. This appendix gives the index a measurement rule and summarises the pre registered tests. The full registration (version 1.1) is in the repository folder \texttt{preregistration/}. It reports no result.
+
+\subsection*{D.1 Operational definition}
+Definition 2 leaves the distribution $p_i$ unspecified. For measurement, $p_i$ is defined from transaction logs in two ways.
+
+\textbf{Latency bin variant (public data).} Completed transactions in a window are assigned to $K=20$ latency bins with logarithmically spaced edges fixed from a training period. Let $p_i$ be the share in bin $i$. Then $H_L=\sum_i p_i\ln(1/p_i)$. This variant uses the latency distribution itself and so carries information about its tail.
+
+\textbf{Stage occupancy variant (operator logs).} The states are in flight stages only: authentication, routing and transit, clearing wait, and settlement confirmation. Let $p_i$ be the share of value weighted in flight time spent in stage $i$. Idle balances are not a state. They enter through $v$ in $\sigma_E$.
+
+The index is as in Definition 2, with $v(\tau)$ inside the integral. On public data the tested predictor is $H_L$ alone, because the datasets carry no capital or institutional friction fields. For any use of the full index, $\kappa=1$ and $\tau_0$ equals the window length.
+
+\subsection*{D.2 Registered tests}
+\begin{itemize}
+\item \textbf{S1.} Does $H_L$ add out of sample predictive information about the 99th percentile latency of the next window, beyond a gradient boosted model with queueing features? The comparison uses pinball loss at the 0.99 quantile on a time ordered test period in two public datasets. Support on a dataset needs a Holm adjusted one sided Diebold Mariano p value below 0.05, a relative loss reduction of at least 5 percent, and a lower 95 percent bound above zero. Support on both datasets is Supported, on neither is Not supported, and on one is Inconclusive.
+\item \textbf{S2.} Estimation, by segmented regression, of the response of Ghanaian mobile money value and volume to the Electronic Transfer Levy. It informs a volume loss gate in any fee pilot. It does not test the velocity dependent schedule of Chapter 5.
+\item \textbf{S3.} Whether friction indicators built from public indices, measured before the 2020 and 2022 shocks, add cross validated predictive fit beyond governance and structural controls, with a threshold of 0.02 in $R^2$. It is secondary and has a small sample.
+\end{itemize}
+
+\subsection*{D.3 What the registered tests can and cannot reject}
+A failure of S1 removes the entropy index as a predictive claim, and the paper will then be revised to say so. It does not reject the mechanics of Chapters 3 and 5 or Hypotheses 1 to 5, which rest on separate assumptions and are tested only in the pilot of Chapter 10.
+
+\endgroup
 
 \end{document}

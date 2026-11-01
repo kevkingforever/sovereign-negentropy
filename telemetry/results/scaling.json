@@ -1,0 +1,30 @@
+[
+ {
+  "transactions": 10000,
+  "events": 50000,
+  "us_per_event": 0.6691835999936302,
+  "open_after": 0,
+  "windows": 5
+ },
+ {
+  "transactions": 40000,
+  "events": 200000,
+  "us_per_event": 0.5933675400001448,
+  "open_after": 0,
+  "windows": 18
+ },
+ {
+  "transactions": 160000,
+  "events": 800000,
+  "us_per_event": 0.5805796787501549,
+  "open_after": 0,
+  "windows": 65
+ },
+ {
+  "transactions": 640000,
+  "events": 3200000,
+  "us_per_event": 0.5931157387499297,
+  "open_after": 0,
+  "windows": 257
+ }
+]
