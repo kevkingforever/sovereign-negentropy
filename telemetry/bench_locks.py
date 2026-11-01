@@ -328,7 +328,7 @@ def main():
             print(f"rep {rep} {cond:17s} p50={r['p50_ms']:.2f} p99={r['p99_ms']:.2f} p99.9={r['p999_ms']:.2f} "
                   f"tx/s={r['throughput_tx_s']:.0f} lockwait={r['lock_wait_samples']} dl={r['deadlocks_db']} "
                   f"({time.time()-t0:.0f}s)", flush=True)
-            os.makedirs(os.path.dirname(args.out), exist_ok=True)
+            os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
             json.dump({"meta": {
                 "postgres": version, "python": platform.python_version(), "cpus": os.cpu_count(),
                 "args": vars(args), "note": "single shared container, synthetic workload"},
