@@ -6,9 +6,9 @@ Author: Kevin Ansong, Independent Researcher
 
 Version: 1.1. It supersedes version 1.0, which is kept unchanged in the archive folder of this repository.
 
-Date of this version: 2 November 2026
+Date of this version: 1 November 2026
 
-Data access statement: no data file or series named in Sections 5, 8, 9 or 10 has been downloaded, opened or analysed for this registration or for version 1.0. The author has read the providers’ public descriptions of the datasets and is aware of the general public reporting on the 2020 growth shock, the 2022 inflation shock and the repeal of the Electronic Transfer Levy. The author makes this statement as at 2 November 2026.
+Data access statement: no data file or series named in Sections 5, 8, 9 or 10 has been downloaded, opened or analysed for this registration or for version 1.0. The author has read the providers’ public descriptions of the datasets and is aware of the general public reporting on the 2020 growth shock, the 2022 inflation shock and the repeal of the Electronic Transfer Levy. The author makes this statement as at 1 November 2026.
 
 ## 1. Purpose and scope
 
@@ -198,6 +198,7 @@ These carry no decision rule and are labelled exploratory in any report.
 * Timestamping. This version is registered on OSF Registries and a tagged release is archived on Zenodo. The OSF registration number and the Zenodo DOI are recorded in the repository README on the day they are issued. Git tag: preregistration_v1_1.
 * Independent check. An independent reviewer is asked to record the SHA256 hash of this document before any data are loaded. The reviewer is to be designated through the University of Ghana or external peer review track named in the Technical Annex.
 * Amendments. Amendments are allowed before the data freeze amendment, each versioned and dated. After the freeze, only deviations are allowed.
+* Tools and assistance. This work was developed by Kevin Ansong with AI assistance (Claude, by Anthropic) for drafting, code and test construction. Kevin Ansong directs the project and is responsible for every claim. All code, tests and results are open and can be rerun by anyone.
 
 ## 12. What these tests cannot show
 
