@@ -158,6 +158,7 @@ Residual risks that remain after these controls: conversion cost and delay durin
 * Any change to the protocol after approval needs written agreement from the operator and the regulator.
 * Declaration of interests and funding: the work has no external funding as at 2 November 2026. The author is the founder of LastStop, a web based vendor directory, and holds no interest in any payment operator named in this document.
 * Licences: code is released under the MIT licence and the paper under CC BY 4.0.
+* Tools and assistance. This work was developed by Kevin Ansong with AI assistance (Claude, by Anthropic) for drafting, code and test construction. Kevin Ansong directs the project and is responsible for every claim. All code, tests and results are open and can be rerun by anyone.
 
 ## Appendix A. Status of claims
 
