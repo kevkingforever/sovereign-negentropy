@@ -1,3 +1,10 @@
+---
+title: "Passive Friction Measurement Pilot in Ghana's Digital Payment Corridors"
+subtitle: "Technical Annex, shared by all cover notes"
+author: "Kevin Ansong, Independent Researcher. Status: proposal for review, not endorsed by any institution"
+date: "Version 1.3, 5 November 2026"
+---
+
 ## 1. Summary
 
 The request is for cooperation to run a 30 day, read only measurement of settlement delay and friction in a defined cluster of payment infrastructure. The measurement runs inside the operator's own environment under a pre registered protocol. No money moves, and no existing system changes.
@@ -5,6 +12,15 @@ The request is for cooperation to run a 30 day, read only measurement of settlem
 The outputs are a baseline friction report for the operator and, with the operator's consent, aggregate public data. Later phases are conditional and are not part of this request.
 
 The work is led by Kevin Ansong, Independent Researcher. It is open source, and every result will be published whatever it shows.
+
+### 1.1 What is proposed: one open standard and one registered test
+
+Operators already measure delay inside their own systems. This request adds two things.
+
+* **An open measurement standard.** Every transaction is split into the same lifecycle stages: initiation, authentication, routing and transit, clearing wait, and settlement confirmation. Latency quantiles (median, 90th and 99th percentile), retries, failures and queue load are computed per stage and end to end in 10 minute windows. Two entropy figures summarise how the timings are spread: the entropy of the latency distribution, and the entropy of where in flight time is spent across stages. The definition is written down so that any operator, the regulator or an independent engineer can compute the same figures from the same logs. Section 3 gives the data minimisation rules.
+* **A registered test.** The pre registration (OSF, https://osf.io/w6uan/) tests whether the entropy of the latency distribution predicts the 99th percentile latency of the next window beyond a gradient boosted model that already uses lagged latency and queueing features. The rules for support, failure and inconclusive results were fixed before any data was opened. The first test runs on public datasets. The stage entropy is reserved for operator logs in Phase 1.
+
+Stage timing and percentile latency are ordinary engineering practice. What is proposed here is a shared written definition, the entropy figures, and the privacy rules, packaged for comparison across operators. The standard has no standing until operators or the regulator adopt it, and the predictive value of the entropy figures is not yet known.
 
 ## 2. Background and status of the evidence
 
@@ -28,7 +44,7 @@ Phase 1 does not depend on the paper being right. It produces measurements of se
 * Retry counts, webhook retransmissions, error and failure rates.
 * Queue utilisation estimates and arrival rates.
 * Fees charged per transaction band.
-* The entropy of the latency distribution and of stage occupancy, and the friction terms defined in the pre registration.
+* The entropy of the latency distribution, and a descriptive entropy of the stage durations booked at stage exit. The in flight occupancy statistic defined in the pre registration is not yet implemented in the reference code. The friction terms are defined in the pre registration.
 * Pipeline overhead on the host (processor, memory, input and output), measured throughout.
 
 ### 3.2 Data minimisation
@@ -40,11 +56,11 @@ Phase 1 does not depend on the paper being right. It produces measurements of se
 | Channel or rail, status code, retry count, fee amount | Required |
 | Amount | Banded (value bands agreed with the operator) or exact, at the operator's choice |
 | Phone number, name, account number, KYC data, location | Excluded. Never read by the pipeline |
-| Output cells | Aggregates only. Any cell with fewer than 50 transactions is suppressed |
+| Output cells | Aggregates only. Any window, and any stage figure within a window, with fewer than 50 contributing transactions is suppressed |
 
 ### 3.3 Deployment pattern
 
-![Phase 1 data flow. Raw data stay inside the operator environment. Only aggregate metrics leave.](/tmp/claude-0/-home-claude/0a14d5cf-2d61-58e5-a84c-4c654a32275e/scratchpad/figs/pipeline.png){width=100%}
+![Phase 1 data flow. Raw data stay inside the operator environment. Only aggregate metrics leave.](pipeline.png){width=100%}
 
 * The pipeline reads from a replica, an existing event stream or a scheduled log export. It performs no writes to the core ledger and takes no database locks on production tables.
 * It runs on hardware designated by the operator. The operator controls its credentials and can revoke them at any time.
@@ -69,11 +85,13 @@ Phase 1 does not depend on the paper being right. It produces measurements of se
 
 The repository contains a reference pipeline in the telemetry folder, written in the Python standard library, with three tests that anyone can rerun.
 
-* Correctness: 12 of 12 self checks pass. The streaming histograms equal a batch computation exactly, stage quantiles recover the known lognormal truth within 8 percent, stage times sum to end to end latency for every transaction, windows under 50 transactions are suppressed, and the code imports nothing but the standard library and references no economic quantity.
-* Cost per event: 0.58 to 0.67 microseconds per event from 50,000 to 3,200,000 events, so the cost does not grow with history. Memory is bounded by transactions in flight.
-* Locking: on PostgreSQL 16 with four writers at 800 transactions per second for 30 seconds, five repetitions each, the read only snapshot reader caused no lock waits and no deadlocks. The few waits recorded were writers meeting each other, at the same level with and without the pipeline. The 99th percentile write latency was 2.75 ms with the pipeline and 2.92 ms without it (medians over five runs). A control reader that deliberately held a table lock raised the 99th percentile to about 155 ms, which shows the test detects locking when it occurs.
+* Correctness: 20 of 20 self checks pass on synthetic data with known answers. The streaming histograms equal a batch computation exactly, stage quantiles recover the known lognormal truth within 8 percent, retry and failure totals equal the injected totals, windows and individual stage figures under 50 contributing transactions are suppressed, duplicate and replayed transaction identifiers are rejected, abandoned transactions expire and old windows are evicted so memory stays bounded, durations above the histogram range are counted and flagged, and the source imports only the standard library. The checks test the reference code. They are not a privacy or security review.
+* Cost per event: 0.95 to 1.35 microseconds per event from 50,000 to 3,200,000 events, so the cost does not grow with history. Memory is bounded by transactions in flight.
+* Locking: on PostgreSQL 16 with four writers at 800 transactions per second for 30 seconds, five repetitions each, the read only snapshot reader caused no lock waits beyond those between writers, and no deadlocks. The few waits recorded were writers meeting each other, at the same level with and without the pipeline. The 99th percentile write latency was 3.33 ms with the pipeline and 3.20 ms without it (medians over five runs, pipeline version 0.2). A control reader that deliberately held a table lock raised the 99th percentile to about 160 ms, which shows the test detects locking when it occurs.
 
 Limits: the load is synthetic and ran on one shared two core machine. These tests show the design takes no write locks and has a constant per event cost. They do not predict the behaviour of any operator's production system, so the first task of Phase 1 is to repeat the locking test on the operator's own replica.
+
+Review record: the telemetry code was reviewed on 4 November 2026 by a reviewer who is a relative of the author and used an AI assistant. The review reproduced eight weaknesses, which were fixed or relabelled on 5 November 2026. REVIEWERS.md in the repository lists each finding and its resolution. Known limits that remain: the stage figures in one window describe different cohorts of transactions and must not be added; retry and failure counts are counts, not rates; the in flight occupancy statistic of the pre registration is not implemented; read queries take ordinary read locks, so the claim is that the pipeline takes no write locks and, in the test, did not slow writers; the benchmark reader advances by sequence number, and a late committing row can be skipped, which the operator's own adapter must handle.
 
 ### 3.7 Indicative timeline
 
