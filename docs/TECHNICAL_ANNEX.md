@@ -17,7 +17,7 @@ The work is led by Kevin Ansong, Independent Researcher. It is open source, and 
 
 Operators already measure delay inside their own systems. This request adds two things.
 
-* **An open measurement standard.** Every transaction is split into the same lifecycle stages: initiation, authentication, routing and transit, clearing wait, and settlement confirmation. Latency quantiles (median, 90th and 99th percentile), retries, failures and queue load are computed per stage and end to end in 10 minute windows. Two entropy figures summarise how the timings are spread: the entropy of the latency distribution, and the entropy of where in flight time is spent across stages. The definition is written down so that any operator, the regulator or an independent engineer can compute the same figures from the same logs. Section 3 gives the data minimisation rules.
+* **An open measurement standard.** Every transaction is split into the same lifecycle stages: initiation, authentication, routing and transit, clearing wait, and settlement confirmation. Latency quantiles (median, 90th and 99th percentile), retries, failures and queue load are computed per stage and end to end in 10 minute windows. Two entropy figures summarise how the timings are spread: the entropy of the latency distribution, and the entropy of where in flight time is spent across stages (this second figure is reserved for Phase 1 operator logs, and the reference code reports a different, descriptive stage entropy; see Section 3.1). The definition is written down so that any operator, the regulator or an independent engineer can compute the same figures from the same logs. Section 3 gives the data minimisation rules.
 * **A registered test.** The pre registration (OSF, https://osf.io/w6uan/) tests whether the entropy of the latency distribution predicts the 99th percentile latency of the next window beyond a gradient boosted model that already uses lagged latency and queueing features. The rules for support, failure and inconclusive results were fixed before any data was opened. The first test runs on public datasets. The stage entropy is reserved for operator logs in Phase 1.
 
 Stage timing and percentile latency are ordinary engineering practice. What is proposed here is a shared written definition, the entropy figures, and the privacy rules, packaged for comparison across operators. The standard has no standing until operators or the regulator adopt it, and the predictive value of the entropy figures is not yet known.
@@ -62,7 +62,7 @@ Phase 1 does not depend on the paper being right. It produces measurements of se
 
 ![Phase 1 data flow. Raw data stay inside the operator environment. Only aggregate metrics leave.](pipeline.png){width=100%}
 
-* The pipeline reads from a replica, an existing event stream or a scheduled log export. It performs no writes to the core ledger and takes no database locks on production tables.
+* The pipeline reads from a replica, an existing event stream or a scheduled log export. It performs no writes to the core ledger and takes no write locks on production tables. Its read queries take ordinary read locks only.
 * It runs on hardware designated by the operator. The operator controls its credentials and can revoke them at any time.
 * Releases are signed. The operator reviews the source code and the dependency list before deployment and may run its own build.
 * A test run on synthetic data precedes any run on operator data.
