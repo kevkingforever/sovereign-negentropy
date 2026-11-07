@@ -31,7 +31,7 @@ fig.tight_layout(); fig.savefig(os.path.join(res, "chart_locks.png")); plt.close
 fig, ax = plt.subplots(figsize=(7.2, 3.6), dpi=200)
 x = [r["events"] for r in sc]; y = [r["us_per_event"] for r in sc]
 ax.plot(x, y, color=COL["pipeline"], lw=2.2, marker="o", ms=6, zorder=3)
-ax.set_xscale("log"); ax.set_ylim(0, 1.0)
+ax.set_xscale("log"); ax.set_ylim(0, 2.0)
 ax.set_xlabel("Events processed so far (log scale)", fontsize=10, color=MUTE)
 ax.set_ylabel("Microseconds per event", fontsize=10, color=MUTE)
 ax.grid(color=GRID, zorder=0)
