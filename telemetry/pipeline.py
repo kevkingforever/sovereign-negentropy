@@ -1,6 +1,6 @@
 """Phase 1 telemetry pipeline: streaming aggregation of transaction lifecycle timestamps.
 
-Version 0.2, revised after an independent review on 4 November 2026 (see REVIEWERS.md).
+Version 0.2, revised after an external review on 4 November 2026 (see REVIEWERS.md).
 
 What it does
     Reads lifecycle events (transaction id, stage code, timestamp) and maintains, per time

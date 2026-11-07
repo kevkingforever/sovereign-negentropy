@@ -14,7 +14,7 @@ This folder holds the reference implementation of the Phase 1 measurement, and t
 
 ## Results recorded on 5 November 2026 (pipeline version 0.2)
 
-Check results: 20 of 20 pass. Version 0.1 (31 October 2026) passed 12 of 12 and recorded 0.58 to 0.67 microseconds per event and 2.75 ms against 2.92 ms. An independent review on 4 November found eight weaknesses, which version 0.2 fixes or relabels. See REVIEWERS.md. The numbers below are a rerun on version 0.2 on a noisier machine session.
+Check results: 20 of 20 pass. Version 0.1 (31 October 2026) passed 12 of 12 and recorded 0.58 to 0.67 microseconds per event and 2.75 ms against 2.92 ms. An external review on 4 November found eight weaknesses, which version 0.2 fixes or relabels. See REVIEWERS.md. The numbers below are a rerun on version 0.2 on a noisier machine session.
 
 Cost per event: 0.95 to 1.35 microseconds, flat from 50,000 to 3,200,000 events.
 

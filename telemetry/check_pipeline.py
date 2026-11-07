@@ -3,7 +3,7 @@
 Each check prints PASS or FAIL with the numbers behind it. These checks test that the
 pipeline recovers known ground truth from synthetic logs and has no dependence on any
 economic layer. They do not test any real payment system. Each check label says what it does and does not
-establish. Revised 5 November 2026 after an independent review (see REVIEWERS.md).
+establish. Revised 5 November 2026 after an external review (see REVIEWERS.md).
 """
 from __future__ import annotations
 
