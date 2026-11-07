@@ -2,28 +2,28 @@
  {
   "transactions": 10000,
   "events": 50000,
-  "us_per_event": 0.6691835999936302,
+  "us_per_event": 0.9474336200037214,
   "open_after": 0,
   "windows": 5
  },
  {
   "transactions": 40000,
   "events": 200000,
-  "us_per_event": 0.5933675400001448,
+  "us_per_event": 1.3459767849997206,
   "open_after": 0,
   "windows": 18
  },
  {
   "transactions": 160000,
   "events": 800000,
-  "us_per_event": 0.5805796787501549,
+  "us_per_event": 1.0067360012502036,
   "open_after": 0,
   "windows": 65
  },
  {
   "transactions": 640000,
   "events": 3200000,
-  "us_per_event": 0.5931157387499297,
+  "us_per_event": 1.296473782812484,
   "open_after": 0,
   "windows": 257
  }

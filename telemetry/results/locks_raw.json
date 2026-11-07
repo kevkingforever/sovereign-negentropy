@@ -12,7 +12,7 @@
    "hold_ms": 150.0,
    "poll_s": 1.0,
    "conds": "baseline,pipeline,blocking_control",
-   "out": "results/locks_raw.json",
+   "out": "/tmp/claude-0/-home-claude/0a14d5cf-2d61-58e5-a84c-4c654a32275e/scratchpad/work/lock_full.json",
    "pgdir": ""
   },
   "note": "single shared container, synthetic workload"
@@ -22,48 +22,47 @@
    "condition": "blocking_control",
    "rep": 0,
    "tx_committed": 26391,
-   "p50_ms": 0.8380313113320881,
-   "p95_ms": 121.02881561440881,
-   "p99_ms": 155.28642551680605,
-   "p999_ms": 162.9806259927591,
-   "max_ms": 168.40154435385557,
+   "p50_ms": 0.975139040860995,
+   "p95_ms": 125.22324698977627,
+   "p99_ms": 158.49512679176314,
+   "p999_ms": 166.08758801453405,
+   "max_ms": 168.6409102584321,
    "throughput_tx_s": 799.7272727272727,
    "lock_wait_samples": {
-    "relation": 242,
-    "transactionid": 111,
-    "tuple": 16
+    "relation": 222,
+    "transactionid": 141,
+    "tuple": 18
    },
-   "sampler_ticks": 736,
+   "sampler_ticks": 738,
    "deadlocks_db": 0,
    "deadlocks_writers": 0,
    "events_written": 131955,
    "reader": {
-    "events_consumed": 131955,
+    "events_consumed": 131953,
     "polls": 33,
     "locks_held_by_reader": {
      "relation:AccessShareLock": 3,
      "relation:ShareLock": 1,
      "virtualxid:ExclusiveLock": 1
     },
-    "cpu_seconds": 0.17,
-    "max_rss_mb": 34.65625,
+    "cpu_seconds": 0.28,
+    "max_rss_mb": 38.140625,
     "anomalies": 0,
-    "open_transactions_at_end": 0
+    "open_transactions_at_end": 1
    }
   },
   {
    "condition": "baseline",
    "rep": 0,
    "tx_committed": 26391,
-   "p50_ms": 0.782859230412214,
-   "p95_ms": 1.6274085128316074,
-   "p99_ms": 4.348957096226513,
-   "p999_ms": 34.042510114431934,
-   "max_ms": 43.949973164217226,
+   "p50_ms": 0.8537818113154572,
+   "p95_ms": 1.6933648056465245,
+   "p99_ms": 2.998984018176998,
+   "p999_ms": 6.36820135855487,
+   "max_ms": 9.581913630427152,
    "throughput_tx_s": 799.7272727272727,
    "lock_wait_samples": {
-    "transactionid": 20,
-    "tuple": 1
+    "transactionid": 10
    },
    "sampler_ticks": 693,
    "deadlocks_db": 0,
@@ -74,16 +73,16 @@
    "condition": "pipeline",
    "rep": 0,
    "tx_committed": 26391,
-   "p50_ms": 0.8126046702727763,
-   "p95_ms": 1.6091034340206534,
-   "p99_ms": 2.727969355191817,
-   "p999_ms": 6.57311484519596,
-   "max_ms": 14.435526047918756,
+   "p50_ms": 0.852202022201709,
+   "p95_ms": 1.6653149233434306,
+   "p99_ms": 3.060303365600703,
+   "p999_ms": 6.486147810960574,
+   "max_ms": 10.571885851391016,
    "throughput_tx_s": 799.7272727272727,
    "lock_wait_samples": {
-    "transactionid": 11
+    "transactionid": 12
    },
-   "sampler_ticks": 719,
+   "sampler_ticks": 722,
    "deadlocks_db": 0,
    "deadlocks_writers": 0,
    "events_written": 131955,
@@ -94,8 +93,8 @@
      "relation:AccessShareLock": 3,
      "virtualxid:ExclusiveLock": 1
     },
-    "cpu_seconds": 0.17,
-    "max_rss_mb": 49.93359375,
+    "cpu_seconds": 0.26,
+    "max_rss_mb": 50.08203125,
     "anomalies": 0,
     "open_transactions_at_end": 0
    },
@@ -144,16 +143,17 @@
    "condition": "baseline",
    "rep": 1,
    "tx_committed": 26402,
-   "p50_ms": 0.8327256055054022,
-   "p95_ms": 1.5945717825616157,
-   "p99_ms": 2.5539366106386296,
-   "p999_ms": 5.733242991254883,
-   "max_ms": 17.302119475061772,
+   "p50_ms": 0.8678879543140283,
+   "p95_ms": 1.7323895980325688,
+   "p99_ms": 3.1951454321870187,
+   "p999_ms": 8.208518102151174,
+   "max_ms": 22.53245613405852,
    "throughput_tx_s": 800.060606060606,
    "lock_wait_samples": {
-    "transactionid": 13
+    "transactionid": 13,
+    "tuple": 1
    },
-   "sampler_ticks": 694,
+   "sampler_ticks": 693,
    "deadlocks_db": 0,
    "deadlocks_writers": 0,
    "events_written": 132010
@@ -162,16 +162,16 @@
    "condition": "pipeline",
    "rep": 1,
    "tx_committed": 26402,
-   "p50_ms": 0.8457673334305582,
-   "p95_ms": 1.679021680047299,
-   "p99_ms": 3.266794758701508,
-   "p999_ms": 10.182989631402961,
-   "max_ms": 34.001809914116166,
+   "p50_ms": 0.8838711277121547,
+   "p95_ms": 1.7951302520486934,
+   "p99_ms": 3.3320361366122597,
+   "p999_ms": 7.301568654952462,
+   "max_ms": 23.599933535820128,
    "throughput_tx_s": 800.060606060606,
    "lock_wait_samples": {
-    "transactionid": 9
+    "transactionid": 8
    },
-   "sampler_ticks": 721,
+   "sampler_ticks": 722,
    "deadlocks_db": 0,
    "deadlocks_writers": 0,
    "events_written": 132010,
@@ -182,8 +182,8 @@
      "relation:AccessShareLock": 3,
      "virtualxid:ExclusiveLock": 1
     },
-    "cpu_seconds": 0.2,
-    "max_rss_mb": 54.953125,
+    "cpu_seconds": 0.27,
+    "max_rss_mb": 54.1328125,
     "anomalies": 0,
     "open_transactions_at_end": 0
    },
@@ -232,18 +232,18 @@
    "condition": "blocking_control",
    "rep": 1,
    "tx_committed": 26402,
-   "p50_ms": 0.9108439212468511,
-   "p95_ms": 122.3396117802622,
-   "p99_ms": 155.24395420629844,
-   "p999_ms": 163.87901279381367,
-   "max_ms": 166.94713349579615,
+   "p50_ms": 0.9423227272691292,
+   "p95_ms": 129.33468918322433,
+   "p99_ms": 159.73713316441263,
+   "p999_ms": 171.67915854031435,
+   "max_ms": 180.54379979878377,
    "throughput_tx_s": 800.060606060606,
    "lock_wait_samples": {
-    "relation": 225,
-    "transactionid": 119,
-    "tuple": 19
+    "relation": 244,
+    "transactionid": 148,
+    "tuple": 9
    },
-   "sampler_ticks": 738,
+   "sampler_ticks": 739,
    "deadlocks_db": 0,
    "deadlocks_writers": 0,
    "events_written": 132010,
@@ -255,8 +255,8 @@
      "relation:ShareLock": 1,
      "virtualxid:ExclusiveLock": 1
     },
-    "cpu_seconds": 0.2,
-    "max_rss_mb": 58.2734375,
+    "cpu_seconds": 0.27,
+    "max_rss_mb": 57.4296875,
     "anomalies": 0,
     "open_transactions_at_end": 0
    }
@@ -265,17 +265,17 @@
    "condition": "pipeline",
    "rep": 2,
    "tx_committed": 26272,
-   "p50_ms": 0.769829007140288,
-   "p95_ms": 1.489732501340768,
-   "p99_ms": 2.451693585499015,
-   "p999_ms": 4.786558306250299,
-   "max_ms": 10.835893593366563,
+   "p50_ms": 0.8544635049929639,
+   "p95_ms": 2.12501075441196,
+   "p99_ms": 5.3397536669308465,
+   "p999_ms": 25.690646745147205,
+   "max_ms": 44.02685883474078,
    "throughput_tx_s": 796.1212121212121,
    "lock_wait_samples": {
-    "transactionid": 14,
+    "transactionid": 16,
     "tuple": 1
    },
-   "sampler_ticks": 720,
+   "sampler_ticks": 722,
    "deadlocks_db": 0,
    "deadlocks_writers": 0,
    "events_written": 131360,
@@ -286,8 +286,8 @@
      "relation:AccessShareLock": 3,
      "virtualxid:ExclusiveLock": 1
     },
-    "cpu_seconds": 0.17,
-    "max_rss_mb": 59.89453125,
+    "cpu_seconds": 0.29000000000000004,
+    "max_rss_mb": 59.19921875,
     "anomalies": 0,
     "open_transactions_at_end": 0
    },
@@ -336,18 +336,18 @@
    "condition": "blocking_control",
    "rep": 2,
    "tx_committed": 26272,
-   "p50_ms": 0.8245241826898564,
-   "p95_ms": 118.51821029381426,
-   "p99_ms": 152.79225346694147,
-   "p999_ms": 161.51653483007067,
-   "max_ms": 164.75378076074776,
+   "p50_ms": 1.0227025568383397,
+   "p95_ms": 131.62117054332612,
+   "p99_ms": 164.70991042683636,
+   "p999_ms": 229.07679651052604,
+   "max_ms": 250.23760272131312,
    "throughput_tx_s": 796.1212121212121,
    "lock_wait_samples": {
-    "relation": 251,
-    "transactionid": 132,
-    "tuple": 8
+    "relation": 228,
+    "transactionid": 139,
+    "tuple": 21
    },
-   "sampler_ticks": 738,
+   "sampler_ticks": 740,
    "deadlocks_db": 0,
    "deadlocks_writers": 0,
    "events_written": 131360,
@@ -359,8 +359,8 @@
      "relation:ShareLock": 1,
      "virtualxid:ExclusiveLock": 1
     },
-    "cpu_seconds": 0.17,
-    "max_rss_mb": 62.9453125,
+    "cpu_seconds": 0.31,
+    "max_rss_mb": 62.13671875,
     "anomalies": 0,
     "open_transactions_at_end": 0
    }
@@ -369,17 +369,17 @@
    "condition": "baseline",
    "rep": 2,
    "tx_committed": 26272,
-   "p50_ms": 0.8094400552636216,
-   "p95_ms": 1.6572064710089762,
-   "p99_ms": 3.0828487431335816,
-   "p999_ms": 7.833152325474657,
-   "max_ms": 11.586389574404166,
+   "p50_ms": 0.9186872475765995,
+   "p95_ms": 1.8306353939578912,
+   "p99_ms": 3.1521133818159797,
+   "p999_ms": 8.816462850631979,
+   "max_ms": 13.840147323435303,
    "throughput_tx_s": 796.1212121212121,
    "lock_wait_samples": {
-    "transactionid": 20,
+    "transactionid": 8,
     "tuple": 1
    },
-   "sampler_ticks": 694,
+   "sampler_ticks": 693,
    "deadlocks_db": 0,
    "deadlocks_writers": 0,
    "events_written": 131360
@@ -388,16 +388,16 @@
    "condition": "pipeline",
    "rep": 3,
    "tx_committed": 26452,
-   "p50_ms": 0.7820058310699096,
-   "p95_ms": 1.5612612953646021,
-   "p99_ms": 2.7465839616525045,
-   "p999_ms": 7.415280664645252,
-   "max_ms": 12.131817580211646,
+   "p50_ms": 0.8984501118902699,
+   "p95_ms": 1.716543741508758,
+   "p99_ms": 2.918981275229271,
+   "p999_ms": 6.1244599050951365,
+   "max_ms": 28.721306647071287,
    "throughput_tx_s": 801.5757575757576,
    "lock_wait_samples": {
-    "transactionid": 8
+    "transactionid": 14
    },
-   "sampler_ticks": 720,
+   "sampler_ticks": 722,
    "deadlocks_db": 0,
    "deadlocks_writers": 0,
    "events_written": 132260,
@@ -408,8 +408,8 @@
      "relation:AccessShareLock": 3,
      "virtualxid:ExclusiveLock": 1
     },
-    "cpu_seconds": 0.18000000000000002,
-    "max_rss_mb": 62.953125,
+    "cpu_seconds": 0.29,
+    "max_rss_mb": 63.1953125,
     "anomalies": 0,
     "open_transactions_at_end": 0
    },
@@ -458,18 +458,18 @@
    "condition": "blocking_control",
    "rep": 3,
    "tx_committed": 26452,
-   "p50_ms": 0.8869892858456296,
-   "p95_ms": 121.03598759745182,
-   "p99_ms": 155.7441498175649,
-   "p999_ms": 163.03121998794268,
-   "max_ms": 172.15090671402322,
+   "p50_ms": 0.9732047126362886,
+   "p95_ms": 124.71231421454831,
+   "p99_ms": 157.7855073049932,
+   "p999_ms": 166.62815724760094,
+   "max_ms": 169.78162494581284,
    "throughput_tx_s": 801.5757575757576,
    "lock_wait_samples": {
-    "relation": 217,
-    "transactionid": 133,
-    "tuple": 14
+    "relation": 212,
+    "transactionid": 144,
+    "tuple": 32
    },
-   "sampler_ticks": 736,
+   "sampler_ticks": 739,
    "deadlocks_db": 0,
    "deadlocks_writers": 0,
    "events_written": 132260,
@@ -481,8 +481,8 @@
      "relation:ShareLock": 1,
      "virtualxid:ExclusiveLock": 1
     },
-    "cpu_seconds": 0.18000000000000002,
-    "max_rss_mb": 65.3828125,
+    "cpu_seconds": 0.29000000000000004,
+    "max_rss_mb": 66.46484375,
     "anomalies": 0,
     "open_transactions_at_end": 0
    }
@@ -491,16 +491,16 @@
    "condition": "baseline",
    "rep": 3,
    "tx_committed": 26452,
-   "p50_ms": 0.7505507867335837,
-   "p95_ms": 1.4517351044105453,
-   "p99_ms": 2.5146726229650085,
-   "p999_ms": 6.671525419278623,
-   "max_ms": 13.473801124064266,
+   "p50_ms": 0.9053713311004685,
+   "p95_ms": 1.820444561531076,
+   "p99_ms": 3.6546146114915246,
+   "p999_ms": 17.229419736850105,
+   "max_ms": 46.78807008406238,
    "throughput_tx_s": 801.5757575757576,
    "lock_wait_samples": {
-    "transactionid": 12
+    "transactionid": 9
    },
-   "sampler_ticks": 694,
+   "sampler_ticks": 693,
    "deadlocks_db": 0,
    "deadlocks_writers": 0,
    "events_written": 132260
@@ -509,18 +509,18 @@
    "condition": "blocking_control",
    "rep": 4,
    "tx_committed": 26236,
-   "p50_ms": 0.7919808381302573,
-   "p95_ms": 118.32007474322381,
-   "p99_ms": 152.5805146327457,
-   "p999_ms": 161.4923340448513,
-   "max_ms": 164.58877426680374,
+   "p50_ms": 0.9557572001313019,
+   "p95_ms": 129.8965824988727,
+   "p99_ms": 161.80331085524813,
+   "p999_ms": 170.88218863989368,
+   "max_ms": 175.26646998555862,
    "throughput_tx_s": 795.030303030303,
    "lock_wait_samples": {
-    "relation": 248,
-    "transactionid": 110,
-    "tuple": 14
+    "relation": 264,
+    "transactionid": 136,
+    "tuple": 1
    },
-   "sampler_ticks": 738,
+   "sampler_ticks": 741,
    "deadlocks_db": 0,
    "deadlocks_writers": 0,
    "events_written": 131180,
@@ -532,8 +532,8 @@
      "relation:ShareLock": 1,
      "virtualxid:ExclusiveLock": 1
     },
-    "cpu_seconds": 0.17,
-    "max_rss_mb": 65.96875,
+    "cpu_seconds": 0.29,
+    "max_rss_mb": 67.1953125,
     "anomalies": 0,
     "open_transactions_at_end": 0
    }
@@ -542,16 +542,16 @@
    "condition": "baseline",
    "rep": 4,
    "tx_committed": 26236,
-   "p50_ms": 0.7810643380707916,
-   "p95_ms": 1.620813379304309,
-   "p99_ms": 2.915689793326237,
-   "p999_ms": 9.98777356676328,
-   "max_ms": 24.916807060208157,
+   "p50_ms": 0.8872611282413345,
+   "p95_ms": 1.7848849643087306,
+   "p99_ms": 3.2986210973149355,
+   "p999_ms": 7.184937310285022,
+   "max_ms": 11.750565601914786,
    "throughput_tx_s": 795.030303030303,
    "lock_wait_samples": {
-    "transactionid": 7
+    "transactionid": 14
    },
-   "sampler_ticks": 694,
+   "sampler_ticks": 693,
    "deadlocks_db": 0,
    "deadlocks_writers": 0,
    "events_written": 131180
@@ -560,16 +560,17 @@
    "condition": "pipeline",
    "rep": 4,
    "tx_committed": 26236,
-   "p50_ms": 0.8037144111767702,
-   "p95_ms": 1.7798676399252145,
-   "p99_ms": 3.7065356264065485,
-   "p999_ms": 8.55592040738884,
-   "max_ms": 19.067811439754223,
+   "p50_ms": 0.9101085813654208,
+   "p95_ms": 1.9808727563486173,
+   "p99_ms": 4.134500713007583,
+   "p999_ms": 23.164441723906748,
+   "max_ms": 30.63803728628045,
    "throughput_tx_s": 795.030303030303,
    "lock_wait_samples": {
-    "transactionid": 11
+    "transactionid": 14,
+    "tuple": 1
    },
-   "sampler_ticks": 717,
+   "sampler_ticks": 722,
    "deadlocks_db": 0,
    "deadlocks_writers": 0,
    "events_written": 131180,
@@ -580,8 +581,8 @@
      "relation:AccessShareLock": 3,
      "virtualxid:ExclusiveLock": 1
     },
-    "cpu_seconds": 0.19,
-    "max_rss_mb": 65.9296875,
+    "cpu_seconds": 0.27999999999999997,
+    "max_rss_mb": 67.19921875,
     "anomalies": 0,
     "open_transactions_at_end": 0
    },
