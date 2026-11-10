@@ -1,6 +1,6 @@
 """Phase 1 telemetry pipeline: streaming aggregation of transaction lifecycle timestamps.
 
-Version 0.2, revised after an external review on 4 November 2026 (see REVIEWERS.md).
+Version 0.3, revised after external reviews on 4 and 9 November 2026 (see REVIEWERS.md).
 
 What it does
     Reads lifecycle events (transaction id, stage code, timestamp) and maintains, per time
@@ -16,7 +16,7 @@ What it does not do
     is open and in a bounded recent window for replay detection. The operator must supply
     pseudonymised identifiers.
 
-Contracts (v0.2)
+Contracts (v0.3)
     Windows. A stage duration is booked in the window containing the stage exit time. End to
     end latency is booked in the window containing settlement. Stage quantiles in one report
     therefore describe different transaction cohorts, and stage p99 values must not be added.
@@ -34,7 +34,9 @@ Contracts (v0.2)
     Unfinished transactions. A transaction with no event for `expire_after_s` seconds of event
     time is dropped and counted as unresolved in the window of its start. Windows older than
     `retain_windows` windows behind the newest window are evicted. Event time is the largest
-    timestamp seen, so events must arrive roughly in time order.
+    timestamp seen among accepted events, so events must arrive roughly in time order. Rejected
+    events never move event time. Expiry runs when a transaction starts; call `flush()` or
+    `advance_watermark(ts)` at the end of a polling batch or stream to expire the rest.
     Histogram range. Durations at or below `lo` and at or above `hi` are counted in separate
     underflow and overflow counters. A quantile that falls in an edge bin with such counts is
     reported with a flag saying it is a bound, not an estimate.
@@ -195,6 +197,30 @@ class Pipeline:
             self.unresolved_total += 1
             self._window(st[2]).unresolved += 1
 
+    def _advance_clock(self, ts: float) -> None:
+        if ts > self._max_ts:
+            self._max_ts = ts
+
+    def advance_watermark(self, ts: float) -> None:
+        """Move event time forward without an event, then expire stale transactions.
+
+        Call it when a polling batch ends or when the input stream closes, so that
+        unfinished transactions are counted as unresolved even if no new transaction
+        starts. A non finite timestamp is rejected and changes nothing.
+        """
+        try:
+            finite = math.isfinite(ts)
+        except TypeError:
+            finite = False
+        if not finite:
+            return self._reject("nonfinite_timestamp")
+        self._advance_clock(ts)
+        self._expire()
+
+    def flush(self) -> None:
+        """Run expiry at the current event time. Use at the end of a batch or stream."""
+        self._expire()
+
     def process(self, tx_id, code, ts, retries=0, failed=False) -> None:
         self.events_seen += 1
         # validate everything before any state changes
@@ -208,13 +234,12 @@ class Pipeline:
             return self._reject("nonfinite_timestamp")
         if type(retries) is not int or retries < 0:
             return self._reject("invalid_retries")
-        if ts > self._max_ts:
-            self._max_ts = ts
         if code == 0:
             if tx_id in self._open:
                 return self._reject("duplicate_start")
             if tx_id in self._recent:
                 return self._reject("replayed_transaction")
+            self._advance_clock(ts)  # only an accepted event moves event time
             self._open[tx_id] = [0, ts, ts]
             self._expire()
             return
@@ -224,6 +249,7 @@ class Pipeline:
         d = ts - st[1]
         if d < 0.0:
             return self._reject("time_backwards")
+        self._advance_clock(ts)  # only an accepted event moves event time
         win = self._window(ts)
         stage = code - 1
         lo, hi = self.bins.lo, self.bins.hi

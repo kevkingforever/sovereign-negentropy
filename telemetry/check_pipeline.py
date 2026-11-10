@@ -3,7 +3,7 @@
 Each check prints PASS or FAIL with the numbers behind it. These checks test that the
 pipeline recovers known ground truth from synthetic logs and has no dependence on any
 economic layer. They do not test any real payment system. Each check label says what it does and does not
-establish. Revised 5 November 2026 after an external review (see REVIEWERS.md).
+establish. Revised 9 November 2026 after two external reviews (see REVIEWERS.md).
 """
 from __future__ import annotations
 
@@ -240,6 +240,31 @@ pst.process("late", 0, 1000.0)
 check("C20 stalled transactions are counted as unresolved in the window where they started",
       pst._windows[0].unresolved == 3 and pst.unresolved_total == 3,
       f"unresolved_total={pst.unresolved_total}")
+
+# ---------------------------------------------------------------- C21 rejected events do not move the expiration clock
+pr = pl.Pipeline(window_s=10.0, expire_after_s=10.0, k_min=1)
+pr.process("keep", 0, 0.0)
+pr.process("ghost", 1, 1000.0)           # unknown transaction: rejected
+pr.process("bad", 0, 2000.0, retries=-1)  # invalid retries: rejected
+pr.process("next", 0, 5.0)               # valid start, 5 seconds after "keep"
+check("C21 rejected events do not advance event time, so a valid open transaction is not expired by them",
+      pr.open_transactions == 2 and pr.unresolved_total == 0 and pr.reasons["unknown_transaction"] == 1,
+      f"open={pr.open_transactions} unresolved={pr.unresolved_total}")
+
+# ---------------------------------------------------------------- C22 watermark and flush expire stale transactions without a new start
+pw = pl.Pipeline(window_s=10.0, expire_after_s=10.0, k_min=1)
+pw.process("stalled", 0, 0.0)
+pw.process("moving", 0, 1.0)
+pw.process("moving", 1, 23.0)            # time advances to 23 through a stage event, no new start
+before = pw.open_transactions
+pw.flush()                               # "stalled" expires, "moving" was active at 23 and stays
+after_flush = pw.open_transactions
+pw.advance_watermark(float("nan"))       # rejected
+pw.advance_watermark(100.0)
+check("C22 flush and advance_watermark expire stale transactions at the end of a batch or stream",
+      before == 2 and after_flush == 1 and pw.unresolved_total == 2 and pw.reasons["nonfinite_timestamp"] == 1
+      and pw.open_transactions == 0,
+      f"before={before} after_flush={after_flush} unresolved={pw.unresolved_total}")
 
 n_pass = sum(results)
 print(f"\n{n_pass} of {len(results)} checks passed")
