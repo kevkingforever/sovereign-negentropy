@@ -53,3 +53,20 @@ def test_outcomes():
     assert overall_outcome({"D1": True, "D2": True}) == "Supported"
     assert overall_outcome({"D1": False, "D2": False}) == "Not supported"
     assert overall_outcome({"D1": True, "D2": False}) == "Inconclusive"
+
+
+def test_ineligible_dataset_cannot_support_and_is_left_out():
+    from s1.run import decide
+    cfg = Config()
+    good = dict(p_raw=0.001, R=0.2, ci=(0.1, 0.3), eligible=True)
+    bad = dict(p_raw=0.0001, R=0.5, ci=(0.4, 0.6), eligible=False)
+    out = decide({"D1": bad, "D2": good}, cfg)
+    assert out["outcome"] == "Supported" and out["ineligible"] == ["D1"] and "D1" not in out["support"]
+    assert decide({"D1": bad}, cfg)["outcome"] == "Not testable"
+
+
+def test_clip_negative_keeps_rows():
+    import numpy as np
+    from s1.windows import clip_negative
+    comp, n = clip_negative([10.0, 10.0, 10.0], [9.0, 10.0005, 12.0])
+    assert n == 2 and np.allclose(comp, [10.001, 10.001, 12.0])

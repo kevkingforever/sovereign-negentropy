@@ -67,6 +67,7 @@ def run_dataset(rows: wd.Rows, cfg: Config, use_unresolved_target: bool = False)
     dm = dm_one_sided(l1, l2)
     bl = block_length(d["w"], cfg)
     lo, hi = circular_block_ci(l1, l2, bl, cfg.n_boot, cfg.alpha, cfg.seed)
+    eligible = bool(int(te.sum()) >= cfg.min_blocks * bl)
     lat = wd.latency(rows, cfg)
     unres = float(np.mean(~np.isfinite(lat)))
     all_usable = int(np.sum([np.isfinite(v) for v in d["raw"]["target"][cfg.lags:]]))
@@ -83,11 +84,23 @@ def run_dataset(rows: wd.Rows, cfg: Config, use_unresolved_target: bool = False)
     return dict(W=d["w"], n_train=int(tr.sum()), n_val=int(va.sum()), n_test=int(te.sum()),
                 loss_g1=float(l1.mean()), loss_g2=float(l2.mean()), R=r, ci=(lo, hi),
                 dm=dm, p_raw=dm["p"], block=bl, params_g1=p1, params_g2=p2, baselines=base,
-                l1=l1, l2=l2, limits=lim, log_scale=log_scale)
+                l1=l1, l2=l2, limits=lim, log_scale=log_scale, eligible=eligible)
 
 
 def decide(results: dict, cfg: Config) -> dict:
-    """results: dataset name to run_dataset output. Applies Holm across datasets, then the three part rule."""
-    adj = holm({k: v["p_raw"] for k, v in results.items()})
-    support = {k: dataset_support(adj[k], v["R"], v["ci"][0], cfg) for k, v in results.items()}
-    return dict(holm_p=adj, support=support, outcome=overall_outcome(support))
+    """results: dataset name to run_dataset output.
+
+    AMENDMENT A1: a dataset whose test period spans fewer than cfg.min_blocks bootstrap blocks is
+    ineligible. It is reported but cannot support, and it is left out of the Holm correction and of
+    the outcome. If no dataset is eligible the outcome is "Not testable".
+    """
+    elig = {k: v for k, v in results.items() if v.get("eligible", True)}
+    if not elig:
+        return dict(holm_p={}, support={k: False for k in results}, outcome="Not testable",
+                    ineligible=sorted(results))
+    adj = holm({k: v["p_raw"] for k, v in elig.items()})
+    support = {k: (dataset_support(adj[k], v["R"], v["ci"][0], cfg) if k in elig else False)
+               for k, v in results.items()}
+    return dict(holm_p=adj, support={k: support[k] for k in elig},
+                outcome=overall_outcome({k: support[k] for k in elig}),
+                ineligible=sorted(set(results) - set(elig)))

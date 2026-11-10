@@ -5,7 +5,7 @@ from s1.config import Config
 from s1.run import decide, run_dataset
 from s1.synth import generate
 
-CFG = Config(horizon_s=1800.0, block_s=7200.0, n_boot=500, min_resolved_per_window=300,
+CFG = Config(horizon_s=1800.0, block_s=3600.0, n_boot=500, min_resolved_per_window=300,
              w_candidates_s=(30.0, 60.0, 300.0))
 
 

@@ -17,6 +17,10 @@ Setup: 24 hours of synthetic arrivals, window 30 seconds, 576 test windows, regi
 A second run of 8 replicates at strength 0 and 1.0 scored the same forecasts on the log scale as a
 secondary, descriptive check: no signal 0 of 8 below p 0.05, signal 4 of 8 (raw scale 0 of 8 and 2 of 8).
 
+Note added after Amendment A1: these runs had a bootstrap block of 240 windows over 576 test windows, which is
+2.4 blocks. Under A1 such a dataset is ineligible. So the study measures how often the rule fires on small
+samples, not how often an eligible test would. A rerun at eligible sizes is needed.
+
 ## What this shows
 
 1. No planted signal: the rule said Supported in 1 of 12 runs. That is about what a 5 percent test

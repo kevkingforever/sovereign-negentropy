@@ -19,13 +19,17 @@ Every change is visible in the commit history.
     synth.py      synthetic data for testing the machinery only
     limits.py     limits report printed with every run
     harness.py    null and planted runs on synthetic data
-    tests/        11 tests
+    tests/        13 tests
 
 Run from the repository root:
 
     python3 -m pip install numpy scipy scikit-learn pytest
     python3 -m pytest -q s1/tests
     python3 -m s1.harness 48
+
+Amendment A1 (draft, preregistration/AMENDMENT_A1_DRAFT.md) adds two things to the code: a dataset is eligible
+only if its test period spans at least 3 bootstrap blocks, and completion before arrival is clipped to a 1 millisecond
+latency instead of dropping the row.
 
 ## What the tests prove
 

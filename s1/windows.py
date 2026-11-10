@@ -26,7 +26,17 @@ class Rows:
         bad = np.isfinite(self.comp) & (self.comp < self.arr)
         if bad.any():
             raise ValueError(f"{int(bad.sum())} rows complete before they arrive. "
-                             "Apply the registered negative latency rule in the adapter.")
+                             "Apply the amendment A1 latency floor in the adapter (clip_negative).")
+
+
+def clip_negative(arr, comp, floor_s: float = 0.001):
+    """AMENDMENT A1. Completion before arrival is timestamp noise, not a faster transaction.
+    The latency is set to floor_s instead of dropping the row, because dropping rows by the value
+    of the outcome biases the distribution. Returns (comp, number_clipped)."""
+    arr = np.asarray(arr, float); comp = np.asarray(comp, float)
+    bad = np.isfinite(comp) & (comp < arr + floor_s)
+    comp = np.where(bad, arr + floor_s, comp)
+    return comp, int(bad.sum())
 
 
 def latency(rows: Rows, cfg: Config):

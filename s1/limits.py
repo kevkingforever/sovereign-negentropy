@@ -21,9 +21,9 @@ def limits(rows_unresolved_share: float, d: dict, te: np.ndarray, tr: np.ndarray
         warnings.append(f"low training size: {n_train} windows (reporting threshold {MIN_TRAIN_WINDOWS})")
     if n_test < MIN_TEST_WINDOWS:
         warnings.append(f"low test size: {n_test} windows (reporting threshold {MIN_TEST_WINDOWS})")
-    if block >= n_test:
-        warnings.append(f"bootstrap block ({block} windows) is not smaller than the test set ({n_test}): "
-                        "the interval rests on about one independent block")
+    if n_test < 3 * block:
+        warnings.append(f"test period spans {n_test / block:.1f} bootstrap blocks ({block} windows each): "
+                        "fewer than 3, so the dataset is ineligible under amendment A1")
     rel = float(np.mean(np.abs(f1 - f2) / np.maximum(f1, 1e-12)))
     collapsed = rel < COLLAPSE_REL_DIFF
     if collapsed:
