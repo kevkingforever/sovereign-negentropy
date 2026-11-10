@@ -71,6 +71,10 @@ def run_dataset(rows: wd.Rows, cfg: Config, use_unresolved_target: bool = False)
     unres = float(np.mean(~np.isfinite(lat)))
     all_usable = int(np.sum([np.isfinite(v) for v in d["raw"]["target"][cfg.lags:]]))
     lim = _limits(unres, d, te, tr, f1, f2, p1, p2, bl, int(te.sum()), max(0, all_usable - len(d["y"])))
+    # secondary, descriptive only: the same forecasts scored on the natural log scale
+    ll1 = pinball(np.log(y), np.log(np.maximum(f1, 1e-9)), cfg.tau)
+    ll2 = pinball(np.log(y), np.log(np.maximum(f2, 1e-9)), cfg.tau)
+    log_scale = dict(R=rel_improvement(ll1, ll2), p=dm_one_sided(ll1, ll2)["p"])
     base = {}
     for name, f in (("P0", d["p0"]), ("P1", d["p1"]), ("Q1", d["q1"]), ("Q2", d["q2"])):
         f = f[te]
@@ -79,7 +83,7 @@ def run_dataset(rows: wd.Rows, cfg: Config, use_unresolved_target: bool = False)
     return dict(W=d["w"], n_train=int(tr.sum()), n_val=int(va.sum()), n_test=int(te.sum()),
                 loss_g1=float(l1.mean()), loss_g2=float(l2.mean()), R=r, ci=(lo, hi),
                 dm=dm, p_raw=dm["p"], block=bl, params_g1=p1, params_g2=p2, baselines=base,
-                l1=l1, l2=l2, limits=lim)
+                l1=l1, l2=l2, limits=lim, log_scale=log_scale)
 
 
 def decide(results: dict, cfg: Config) -> dict:
