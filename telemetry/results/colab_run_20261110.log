@@ -1,0 +1,92 @@
+Run by Kevin Ansong on Google Colab, 10 November 2026, repository main branch.
+Notebook cells and their output, ANSI colour codes removed.
+
+### cell 0
+!git clone https://github.com/kevkingforever/sovereign-negentropy /content/sn
+%cd /content/sn/telemetry
+
+Cloning into '/content/sn'...
+remote: Enumerating objects: 203, done.
+remote: Counting objects: 100% (203/203), done.
+remote: Compressing objects: 100% (198/198), done.
+remote: Total 203 (delta 94), reused 0 (delta 0), pack-reused 0 (from 0)
+Receiving objects: 100% (203/203), 1.16 MiB | 6.97 MiB/s, done.
+Resolving deltas: 100% (94/94), done.
+/content/sn/telemetry
+
+### cell 1
+!python3 check_pipeline.py
+
+PASS | C1 streaming end to end histogram equals batch histogram | 120000 transactions
+PASS | C2 H_L equals batch entropy | H_L=3.520095
+PASS | C3 stage p50 and p99 within bin resolution of exact batch quantiles | worst relative error=0.0222
+PASS | C4 stage medians recover the generating medians (5 percent retries injected) | worst relative error=0.0316
+PASS | C5 stage p99 recovers the analytic lognormal p99 (no retries) | worst relative error=0.0219
+PASS | C6 the synthetic timestamps are self consistent: stage durations sum to end to end latency (does not test the pipeline window allocation) | violations=0
+PASS | C7 retry and failure totals equal the injected totals (failures here occur at the settlement event) | retries=25116 of 25116 failures=1216 of 1216
+PASS | C8 a whole window with fewer than 50 completions is suppressed and exposes no count | report={'window_start': 0.0, 'suppressed': True}
+PASS | C9 unknown, skipped and backwards events are counted as anomalies, not crashes | anomalies=3
+PASS | C10 no open transactions remain after fully completed lifecycles (abandoned transactions are tested in C16) | open=0
+PASS | C11 source scan: standard library imports only and no economic names (this is not a privacy or security test) | imports=['__future__', 'collections', 'math'] economic_names=[]
+PASS | C12 short timing comparison: cost per event at 400,000 events is within 1.5 times the cost at 20,000 events (not a worst case guarantee) | per event microseconds: 1.57 then 1.61, ratio=1.03
+PASS | C13 a stage with fewer than 50 contributing transactions is suppressed even when the window is not | completed=51 authentication={'suppressed': True}
+PASS | C14 a duplicate start is rejected and the original start is kept (end to end stays 10 s) | reasons={'duplicate_start': 1}
+PASS | C15 replaying a finished transaction id is rejected, not counted twice | reasons={'replayed_transaction': 1}
+PASS | C16 abandoned transactions expire and old windows are evicted (state stays bounded) | open=11 windows=50 unresolved=4989
+PASS | C17 durations above the histogram ceiling are counted as overflow and the quantile is flagged as a lower bound | overflow=60 p99=971.6 bound=lower
+PASS | C18 non finite timestamps, bad codes, negative retries and bad configuration are rejected with reasons, before any state changes | reasons={'nonfinite_timestamp': 3, 'invalid_code': 1, 'invalid_retries': 1}
+PASS | C19 pooled() leaves the window table unchanged and reports no fake window start | windows=1
+PASS | C20 stalled transactions are counted as unresolved in the window where they started | unresolved_total=3
+PASS | C21 rejected events do not advance event time, so a valid open transaction is not expired by them | open=2 unresolved=0
+PASS | C22 flush and advance_watermark expire stale transactions at the end of a batch or stream | before=2 after_flush=1 unresolved=2
+
+22 of 22 checks passed
+
+### cell 2
+!python3 bench_scaling.py
+
+{'transactions': 10000, 'events': 50000, 'us_per_event': 1.7914575000031618, 'open_after': 0, 'windows': 5}
+{'transactions': 40000, 'events': 200000, 'us_per_event': 1.8904773849999401, 'open_after': 0, 'windows': 18}
+{'transactions': 160000, 'events': 800000, 'us_per_event': 1.924210941249953, 'open_after': 0, 'windows': 65}
+{'transactions': 640000, 'events': 3200000, 'us_per_event': 2.0449024643750136, 'open_after': 0, 'windows': 257}
+
+### cell 3
+!pip install -q numpy scipy sympy
+%cd /content/sn/verification
+!python3 verify_checks.py | tail -3
+!python3 verify_symbolic.py | tail -3
+
+/content/sn/verification
+PASS | C11 [Prop 10 Convergence of decentralized descent] J(u_m) - J* <= ||u0 - u*||^2 / (2 eta m) for 200 steps | L=15.247
+
+28 of 28 checks passed
+PASS | S10b [Prop 6] tanh(0) = 0 so Q = 0 at saturation, and tanh(1) < 1 bounds the factor | tanh(1)=0.761594
+
+19 of 19 symbolic checks passed
+
+### cell 4
+!pip install -q pixeltable_pgserver "psycopg[binary]" matplotlib
+%cd /content/sn/telemetry
+!python3 bench_locks.py --reps 3 --duration 20 --rate 250 --out results/my_run.json
+
+/content/sn/telemetry
+/usr/local/lib/python3.13/dist-packages/platformdirs/api.py:467: RuntimeDirWarning: XDG_RUNTIME_DIR is not set, falling back to /tmp/runtime-0
+  return Path(self.user_runtime_dir)
+rep 0 blocking_control  p50=1.44 p99=149.03 p99.9=160.50 tx/s=250 lockwait={'relation': 135, 'transactionid': 79, 'tuple': 10} dl=0 (27s)
+rep 0 baseline          p50=1.42 p99=4.59 p99.9=8.66 tx/s=250 lockwait={'transactionid': 2} dl=0 (25s)
+rep 0 pipeline          p50=1.39 p99=4.10 p99.9=7.88 tx/s=250 lockwait={'transactionid': 3} dl=0 (26s)
+rep 1 baseline          p50=1.34 p99=3.99 p99.9=6.00 tx/s=251 lockwait={'transactionid': 2} dl=0 (25s)
+rep 1 pipeline          p50=1.35 p99=4.31 p99.9=7.12 tx/s=251 lockwait={'transactionid': 3} dl=0 (26s)
+rep 1 blocking_control  p50=1.43 p99=152.70 p99.9=163.69 tx/s=251 lockwait={'relation': 136, 'transactionid': 78, 'tuple': 12} dl=0 (27s)
+rep 2 pipeline          p50=1.36 p99=4.23 p99.9=6.49 tx/s=242 lockwait={'transactionid': 3} dl=0 (26s)
+rep 2 blocking_control  p50=1.45 p99=151.89 p99.9=160.48 tx/s=242 lockwait={'relation': 137, 'transactionid': 65, 'tuple': 29} dl=0 (27s)
+rep 2 baseline          p50=1.39 p99=3.67 p99.9=4.91 tx/s=242 lockwait={} dl=0 (25s)
+
+### cell 5
+!pip install -q numpy scipy scikit-learn pytest
+%cd /content/sn
+!python3 -m pytest -q s1/tests
+
+/content/sn
+.............                                                            [100%]
+13 passed in 65.63s (0:01:05)

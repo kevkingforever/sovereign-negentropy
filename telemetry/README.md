@@ -6,7 +6,7 @@ This folder holds the reference implementation of the Phase 1 measurement, and t
 
 * pipeline.py: streaming aggregation of lifecycle events into histograms, delay percentiles, retry and failure counts, H_L, and a descriptive entropy of stage durations booked at stage exit (H_exit, which is not the registered in flight occupancy statistic). Windows, and individual stage figures, under 50 contributing transactions are suppressed. See the contracts in the pipeline docstring.
 * synthetic.py: a lifecycle generator with known ground truth.
-* check_pipeline.py: 20 self checks. Run `python3 check_pipeline.py`.
+* check_pipeline.py: 22 self checks. Run `python3 check_pipeline.py`.
 * bench_scaling.py: cost per event at 50,000 to 3,200,000 events. Run `python3 bench_scaling.py`.
 * bench_locks.py: a PostgreSQL test of write latency and lock waits with and without the pipeline, and with a deliberate lock as a control.
 * make_charts.py: draws the two charts from the saved results.
@@ -27,6 +27,22 @@ Lock test: PostgreSQL 16.14, four writers, 800 transactions per second, five rep
 | Deliberate table lock (control) | 159.74 ms | 0 |
 
 Lock waits recorded without the pipeline and with it were writers waiting for other writers. The control run adds waits on the table itself, which shows the test can detect locking.
+
+## Second run on Google Colab, 10 November 2026 (run by the author)
+
+The same code was run on a different machine, using the notebook cells described in the repository history: 22 of 22 pipeline checks, 28 of 28 and 19 of 19 mathematics checks, and 13 S1 tests passed. The raw output is in `results/colab_run_20261110.log`.
+
+Cost per event rose from 1.79 to 2.04 microseconds between 50,000 and 3,200,000 events. That machine is slower than the first one, and the cost stayed close to flat.
+
+Lock test, 250 transactions per second, three repetitions of 20 seconds, median 99th percentile write latency:
+
+| Condition | 99th percentile write latency | Deadlocks |
+|:---|---:|---:|
+| No pipeline | 3.99 ms (3.67 to 4.59) | 0 |
+| Read only pipeline | 4.23 ms (4.10 to 4.31) | 0 |
+| Deliberate table lock (control) | 151.89 ms (149.03 to 152.70) | 0 |
+
+Table lock waits appeared only in the control. This was run by the author, so it shows the result repeats on a second machine. It is not an independent run.
 
 ## Limits
 
