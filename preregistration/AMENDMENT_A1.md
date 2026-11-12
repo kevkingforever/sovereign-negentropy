@@ -51,7 +51,7 @@ Reason: a negative value is timestamp noise, not a faster transaction. Removing 
 
 Registered: completion is the timestamp of the including block, joined by hash from canonical chain data, with the source named in the data freeze amendment.
 
-Decision: use the inclusion fields published in the Mempool Dumpster files themselves: included block timestamp as completion, and the file's first seen timestamp as arrival. The provider states that these fields are filled by checking each transaction's inclusion status against an Ethereum execution node. The published page does not name the node provider. A transaction without inclusion fields is unresolved. No outside join is made.
+Decision: use the inclusion fields published in the Mempool Dumpster files themselves. The file header (read on 12 November 2026, header line only, no data values) lists the columns `timestamp_ms`, `included_at_block_height`, `included_block_timestamp_ms` and `inclusion_delay_ms`. Completion is `included_block_timestamp_ms`. Arrival is `timestamp_ms`, the first seen time. A row with `inclusion_delay_ms` negative is handled by section 3.3. The provider states that these fields are filled by checking each transaction's inclusion status against an Ethereum execution node. The published page does not name the node provider. A transaction without inclusion fields is unresolved. No outside join is made.
 
 Reason: one source removes a place where timestamps can fail to line up. Limitation, recorded: the provider fills inclusion fields when it merges each day, so a transaction included later than that may show as unresolved. The 3 day gap before the freeze date in section 3.2 limits the effect. A2 reports the unresolved share by day.
 
