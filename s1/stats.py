@@ -12,7 +12,10 @@ def pinball(y, f, tau: float) -> np.ndarray:
 
 def rel_improvement(loss1, loss2) -> float:
     """R = 1 - mean(loss G2) / mean(loss G1)."""
-    return 1.0 - float(np.mean(loss2)) / float(np.mean(loss1))
+    m1 = float(np.mean(loss1))
+    if not m1 > 0:
+        return float("nan")      # G1 scores zero loss (for example a constant target): R is undefined
+    return 1.0 - float(np.mean(loss2)) / m1
 
 
 def newey_west_lrv(d: np.ndarray, bandwidth: int) -> float:

@@ -10,7 +10,11 @@ from .stats import (block_length, circular_block_ci, dataset_support, dm_one_sid
                     overall_outcome, pinball, rel_improvement)
 
 
-def make_design(rows: wd.Rows, cfg: Config, use_unresolved_target: bool = False):
+def make_design(rows: wd.Rows, cfg: Config, use_unresolved_target: bool = False, h_key: str = "h",
+                fixed: dict | None = None):
+    """fixed (Amendment A3): dict with w, edges and check. The registered W and bin edges are used. With check
+    true (the primary run) the constants are also recomputed from the training period and the run stops if they
+    differ. With check false (secondary sensitivity runs on altered rows) the registered constants are used as given."""
     t0 = float(rows.arr.min())
     t1 = float(rows.arr.max())
     span = t1 - t0
@@ -19,11 +23,17 @@ def make_design(rows: wd.Rows, cfg: Config, use_unresolved_target: bool = False)
     data_end = float(max(t1, np.nanmax(rows.comp)))
     w = wd.choose_w(rows, cfg, train_end)
     edges = wd.bin_edges(rows, cfg, train_end)
+    if fixed is not None:
+        if fixed.get("check", True):
+            if float(w) != float(fixed["w"]) or not np.allclose(edges, np.asarray(fixed["edges"]), rtol=1e-12, atol=0):
+                raise ValueError("The window length or bin edges recomputed from the training period differ from "
+                                 "the constants registered in Amendment A3. Stop.")
+        w = float(fixed["w"]); edges = np.asarray(fixed["edges"], float)
     raw = wd.build(rows, cfg, w, edges, t0=t0)
     tgt_series = raw["target_unres"] if use_unresolved_target else raw["target"]
 
     keys1 = keys2 = None
-    X1, X2, y, split, ends, p0, p1 = [], [], [], [], [], [], []
+    X1, X2, y, split, ends, p0, p1, ks = [], [], [], [], [], [], [], []
     h = cfg.horizon_s if cfg.purge else 0.0
     for k in range(cfg.lags - 1, raw["n"] - 1):
         tk = tgt_series[k + 1]
@@ -39,21 +49,22 @@ def make_design(rows: wd.Rows, cfg: Config, use_unresolved_target: bool = False)
             s = "test"
         else:
             continue
-        g1, g2 = wd.features(raw, cfg, k)
+        g1, g2 = wd.features(raw, cfg, k, h_key)
         if keys1 is None:
             keys1, keys2 = list(g1), list(g2)
         X1.append([g1[c] for c in keys1]); X2.append([g2[c] for c in keys2])
-        y.append(tk); split.append(s); ends.append(end)
+        y.append(tk); split.append(s); ends.append(end); ks.append(k)
         p0.append(raw["q99"][k]); p1.append(ewma(raw["q99"][:k + 1], cfg.ewma_weight))
     return dict(X1=np.array(X1), X2=np.array(X2), y=np.array(y), split=np.array(split),
                 keys1=keys1, keys2=keys2, p0=np.array(p0), p1=np.array(p1), w=w, edges=edges,
-                raw=raw, t0=t0, train_end=train_end, val_end=val_end, data_end=data_end,
+                ks=np.array(ks), raw=raw, t0=t0, train_end=train_end, val_end=val_end, data_end=data_end,
                 q1=np.array([r[keys1.index("q1")] for r in X1]),
                 q2=np.array([r[keys1.index("q2")] for r in X1]))
 
 
-def run_dataset(rows: wd.Rows, cfg: Config, use_unresolved_target: bool = False) -> dict:
-    d = make_design(rows, cfg, use_unresolved_target)
+def run_dataset(rows: wd.Rows, cfg: Config, use_unresolved_target: bool = False, h_key: str = "h",
+                fixed: dict | None = None) -> dict:
+    d = make_design(rows, cfg, use_unresolved_target, h_key, fixed)
     s = d["split"]
     tr, va, te = s == "train", s == "val", s == "test"
     if te.sum() < 5 or tr.sum() < 20 or va.sum() < 5:
@@ -76,6 +87,21 @@ def run_dataset(rows: wd.Rows, cfg: Config, use_unresolved_target: bool = False)
     ll1 = pinball(np.log(y), np.log(np.maximum(f1, 1e-9)), cfg.tau)
     ll2 = pinball(np.log(y), np.log(np.maximum(f2, 1e-9)), cfg.tau)
     log_scale = dict(R=rel_improvement(ll1, ll2), p=dm_one_sided(ll1, ll2)["p"])
+    # secondary, descriptive only (registration section 7): surge windows and the Brier score
+    ks = d["ks"][te]
+    arr_w = d["raw"]["arrivals"]
+    ntw = max(1, int((d["train_end"] - d["t0"]) // d["w"]))
+    thr_s = float(np.percentile(arr_w[:ntw], 95))
+    surge = arr_w[ks] > thr_s
+    surge_res = dict(threshold=thr_s, n=int(surge.sum()))
+    if surge.sum() >= 5:
+        surge_res["R"] = float(rel_improvement(l1[surge], l2[surge]))
+    thr_b = float(2.0 * np.median(d["y"][tr]))
+    ev = (y > thr_b).astype(float)
+    brier = dict(threshold=thr_b, event_rate=float(ev.mean()),
+                 G1=float(np.mean(((f1 > thr_b).astype(float) - ev) ** 2)),
+                 G2=float(np.mean(((f2 > thr_b).astype(float) - ev) ** 2)),
+                 note="binary forecast: the model forecast exceeds the threshold")
     base = {}
     for name, f in (("P0", d["p0"]), ("P1", d["p1"]), ("Q1", d["q1"]), ("Q2", d["q2"])):
         f = f[te]
@@ -84,7 +110,8 @@ def run_dataset(rows: wd.Rows, cfg: Config, use_unresolved_target: bool = False)
     return dict(W=d["w"], n_train=int(tr.sum()), n_val=int(va.sum()), n_test=int(te.sum()),
                 loss_g1=float(l1.mean()), loss_g2=float(l2.mean()), R=r, ci=(lo, hi),
                 dm=dm, p_raw=dm["p"], block=bl, params_g1=p1, params_g2=p2, baselines=base,
-                l1=l1, l2=l2, limits=lim, log_scale=log_scale, eligible=eligible)
+                l1=l1, l2=l2, limits=lim, log_scale=log_scale, eligible=eligible,
+                surge=surge_res, brier=brier)
 
 
 def decide(results: dict, cfg: Config) -> dict:

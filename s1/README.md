@@ -20,9 +20,10 @@ Every change is visible in the commit history.
     limits.py     limits report printed with every run
     adapters.py   D2 files to arrival and completion times, with a manifest check
     freeze_a3.py  Amendment A3: window length, bin edges and unresolved share, from the training period only
+    run_d2.py     the registered S1 run on D2 and a rehearsal mode on training days only
     tools/        fingerprint_files.py (names, sizes, SHA256, row counts only) and its 12 checks
     harness.py    null and planted runs on synthetic data
-    tests/        19 tests
+    tests/        25 tests
 
 Run from the repository root:
 
@@ -78,3 +79,21 @@ first 60 percent of the span from the first to the last arrival), with completio
 it reports the share of rows with no inclusion time, by arrival day and by arrival hour in UTC (Amendment A1.1).
 tests/test_a3.py shows that changing every validation and test outcome leaves the window length and bin edges unchanged.
 The tools/ checks are run as scripts, not through pytest: `python3 s1/tools/test_fingerprint.py`.
+
+## The run (run_d2.py)
+
+    python3 -m s1.run_d2 --mode rehearsal --days 14 --folder FOLDER --manifest preregistration/manifests/manifest_d2.json --a3 preregistration/a3/a3_constants.json --out rehearsal
+    python3 -m s1.run_d2 --mode run --folder FOLDER --manifest preregistration/manifests/manifest_d2.json --a3 preregistration/a3/a3_constants.json --out s1_result
+
+The rehearsal runs the same code on the first N days only, all inside the training period, cut into their own pieces.
+Its output says NOT A RESULT. Only bugs may be fixed after it, and no setting changes. The run mode refuses to start
+unless the code is at the tag s1-code-freeze-v1, and stops if the manifest or the A3 file differs from the registered
+SHA256, or if the window length and bin edges recomputed from the training period differ from Amendment A3.
+
+Secondary results, reported with no decision rule, each in its own guarded step so that one cannot stop the report of the
+primary: rows with negative latency dropped, the 24 hour latency treatment of unresolved transactions, and the value
+weighted entropy (the registered weight is the transaction value column). The natural log scale, the surge windows and
+the Brier score come with the primary run. Interpretations, fixed before any held out data are opened: surge windows are
+test windows whose origin window has more arrivals than the 95th percentile of training windows; the Brier score is
+computed for a binary forecast (the model forecast exceeds twice the training median of the target) against the event
+(the realised value exceeds the same threshold).

@@ -17,12 +17,15 @@ class Rows:
     arr: np.ndarray                 # arrival time, seconds
     comp: np.ndarray                # completion time, nan if none
     fee: np.ndarray | None = None   # optional fee rate at arrival
+    val: np.ndarray | None = None   # optional transaction value, the weight for the value weighted entropy
 
     def __post_init__(self):
         self.arr = np.asarray(self.arr, float)
         self.comp = np.asarray(self.comp, float)
         if self.fee is not None:
             self.fee = np.asarray(self.fee, float)
+        if self.val is not None:
+            self.val = np.asarray(self.val, float)
         bad = np.isfinite(self.comp) & (self.comp < self.arr)
         if bad.any():
             raise ValueError(f"{int(bad.sum())} rows complete before they arrive. "
@@ -102,14 +105,21 @@ def build(rows: Rows, cfg: Config, w: float, edges: np.ndarray, t0: float | None
     completed = np.bincount(ic[comp_ok], minlength=n).astype(float)
     q50 = np.full(n, np.nan); q90 = q50.copy(); q99 = q50.copy()
     h = q50.copy(); mean_l = q50.copy(); m2_l = q50.copy()
+    hw = q50.copy() if rows.val is not None else None
     order = np.argsort(ic[comp_ok], kind="stable")
     li = lat[comp_ok][order]
+    vi = rows.val[comp_ok][order] if rows.val is not None else None
     bounds = np.concatenate([[0], np.cumsum(completed.astype(int))])
     for k in range(n):
         x = li[bounds[k]:bounds[k + 1]]
         if x.size:
             q50[k], q90[k], q99[k] = np.quantile(x, [0.5, 0.9, 0.99])
-            h[k] = entropy_nats(np.bincount(_bin_index(x, edges), minlength=len(edges) - 1))
+            bi = _bin_index(x, edges)
+            h[k] = entropy_nats(np.bincount(bi, minlength=len(edges) - 1))
+            if hw is not None:
+                v = vi[bounds[k]:bounds[k + 1]]
+                v = np.where(np.isfinite(v) & (v > 0), v, 0.0)
+                hw[k] = entropy_nats(np.bincount(bi, weights=v, minlength=len(edges) - 1))
             mean_l[k] = x.mean(); m2_l[k] = (x ** 2).mean()
 
     # pending at the end of window k: arrived by then, not completed by then
@@ -140,7 +150,7 @@ def build(rows: Rows, cfg: Config, w: float, edges: np.ndarray, t0: float | None
         if x.size:
             tgt_unres[k] = np.quantile(np.where(np.isfinite(x), x, cfg.horizon_s), cfg.tau)
     return dict(t0=t0, w=w, n=n, arrivals=arrivals, completed=completed, q50=q50, q90=q90,
-                q99=q99, h=h, mean_l=mean_l, m2_l=m2_l, pending=pending, fee50=fee50,
+                q99=q99, h=h, hw=hw, mean_l=mean_l, m2_l=m2_l, pending=pending, fee50=fee50,
                 fee90=fee90, target=tgt, target_unres=tgt_unres)
 
 
@@ -152,8 +162,9 @@ def _lagged(x: np.ndarray, k: int, lags: int) -> np.ndarray:
     return out
 
 
-def features(raw: dict, cfg: Config, k: int) -> tuple[dict, dict]:
-    """G1 and G2 feature dicts for forecast origin k (end of window k)."""
+def features(raw: dict, cfg: Config, k: int, hkey: str = "h") -> tuple[dict, dict]:
+    """G1 and G2 feature dicts for forecast origin k (end of window k). hkey "h" is the registered entropy,
+    "hw" the value weighted sensitivity version."""
     w = raw["w"]
     g1 = {}
     for name in ("arrivals", "completed", "q50", "q90", "q99"):
@@ -175,7 +186,7 @@ def features(raw: dict, cfg: Config, k: int) -> tuple[dict, dict]:
         m = m2 = float("nan")
     g1["q1"] = q1(lam, m, cfg.horizon_s, cfg.q_estimator)
     g1["q2"] = q2(lam, m, m2, cfg.horizon_s)
-    hl = _lagged(raw["h"], k, cfg.lags)
+    hl = _lagged(raw[hkey], k, cfg.lags)
     g2 = dict(g1)
     for j, v in enumerate(hl):
         g2[f"h_l{j}"] = v
