@@ -9,7 +9,7 @@ Author: Kevin Ansong, independent researcher. Edition: October 2026.
 * This is a working paper. It has not yet been independently reviewed.
 * It proposes a framework and states testable hypotheses. It reports no empirical results.
 * The mathematics has been checked for internal consistency (see verification below). That is a check on the algebra and logic, not on whether the economics works.
-* The first empirical tests are pre registered (see the preregistration folder), with two dated amendments (A1 and A1.1) registered on 12 November 2026. No test has been run and no result is reported.
+* The first empirical tests are pre registered (see the preregistration folder), with two dated amendments (A1 and A1.1) registered on 12 November 2026 and a data freeze amendment (A2) registered on 14 November 2026. No test has been run and no result is reported.
 
 ## What is in this repository
 
@@ -81,4 +81,8 @@ Amendments to the registration, both registered on 12 November 2026 before any d
 * A1.1: two clarifications after reviewer comments. GitHub release `preregistration_a1_1`, Zenodo DOI https://doi.org/10.5281/zenodo.24170447, PDF SHA256 120aa87963569650ce79551abb1afc1a4cd550b36c67e6d6da88f1c1b05c4a42.
 * OSF registration of both: https://osf.io/ezpxf (project https://osf.io/wc4e8).
 
-The next record is Amendment A2, the data freeze. The full list is in preregistration/REGISTRY.md.
+Data freeze, registered on 14 November 2026:
+
+* A2: the 28 Ethereum files (16 October to 12 November 2026) with checksums, and the status of D1. GitHub release `preregistration_a2`, Zenodo DOI https://doi.org/10.5281/zenodo.24213041, PDF SHA256 605009011f49cabdb85a4c07c954377c6c8a2aef412d194b5f88476248e40380. OSF registration https://osf.io/pt43h. The manifests are in preregistration/manifests/.
+
+The next record is Amendment A3: the window length, the bin edges and the unresolved share report, from the training period only. The full list is in preregistration/REGISTRY.md.
