@@ -44,3 +44,13 @@ Entry format:
 * Made before or after data access: before. Only file names, sizes, SHA256, row counts and the column names were read.
 * Effect on interpretation: none. The registration requirement that the window and bins are fixed before the validation and test periods are opened is unchanged.
 * D1: the dataset could not be retrieved on 14 November 2026. It is treated as ineligible under A1 section 3.1 and S1 is decided on D2 alone.
+
+## Run script interpretations, 14 November 2026
+
+* Date: 14 November 2026.
+* Section of the registration: section 7, secondary analyses.
+* What was planned: surge windows, the Brier score, the value weighted entropy and the 24 hour latency treatment, "reported without a decision rule", with no further definition.
+* What was done: surge windows are test windows whose origin window has more arrivals than the 95th percentile of training windows. The Brier score is computed for a binary forecast (the model forecast exceeds twice the training median of the target) against the event that the realised value exceeds the same threshold. The value weighted entropy weights each completed transaction by its value column. Each secondary run is guarded, so a failure is recorded and cannot stop the report of the primary run.
+* Reason: the registration names these analyses without defining the Brier forecast or the surge test.
+* Made before or after data access: before. Only the training period of D2 had been used, for Amendment A3.
+* Effect on interpretation: none for the decision rule. The secondary results carry no decision.
