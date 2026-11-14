@@ -1,4 +1,4 @@
-# Power study on synthetic data (draft, 10 November 2026)
+# Power study on synthetic data (draft, updated 14 November 2026)
 
 Script: `python3 -m s1.power OUT.jsonl REPS HOURS STRENGTH ...`. Synthetic data only. The planted
 signal is invented, so this says nothing about the real world. It tests the machinery and the
@@ -40,3 +40,22 @@ claim about power, and the real datasets have different shapes from this one.
 
 Report limits next to every result. Do not read a "not supported" outcome from a small dataset as
 evidence against the idea. The Ethereum dataset (more windows) is the better chance of a clear answer.
+
+## Rerun at eligible sizes (14 November 2026)
+
+Setup: 72 hours of synthetic arrivals at rate 6 per second, window 30 seconds, block of 120 windows, about 1,700 scored test windows, so about 14 blocks. Every run is eligible under Amendment A1. The registered rule is unchanged. The script is `s1/power.py` run with these sizes. The planted signal is invented.
+
+| Planted strength | Replicates | Registered rule says Supported | R at least 0.05 | Raw p below 0.05 | Interval lower bound above 0 | Mean R |
+|:---|:---|:---|:---|:---|:---|:---|
+| 0 (none) | 6 | 0 of 6 | 0 of 6 | 2 of 6 | 0 of 6 | +0.008 |
+| 0.5 | 1 | 0 of 1 | 1 of 1 | 0 of 1 | 0 of 1 | +0.105 |
+| 1.0 | 6 | 0 of 6 | 1 of 6 | 0 of 6 | 0 of 6 | +0.002 |
+| 1.5 | 6 | 0 of 6 | 3 of 6 | 1 of 6 | 0 of 6 | +0.035 |
+
+What this shows:
+
+1. With no planted signal the rule never said Supported. The false positive rate is low, which is what the bootstrap rule was meant to give.
+2. With a planted signal the rule also never said Supported. The interval lower bound was never above zero. The rule is conservative: it needs a real gain of about 5 percent or more in pinball loss, held across blocks.
+3. A modest real effect would most likely give "Not supported" or "Inconclusive". Read those outcomes with the limits report next to them.
+
+What it does not show: 6 runs per row, and one run at strength 0.5, are far too few to estimate power. The planted effect size is an invention. This is a check of the machinery and of how demanding the rule is. It is not a reason to change a threshold, and none is changed.
