@@ -33,3 +33,14 @@ Entry format:
 * Reason:
 * Made before or after data access:
 * Effect on interpretation:
+
+## A2, 14 November 2026
+
+* Date: 14 November 2026.
+* Section of A1: the sentence in the purpose section saying A2 records the files, the window length and the bin edges.
+* What was planned: one data freeze amendment recording files, window length and bin edges.
+* What was done: A2 records the files and the D1 status. A3 will record the window length, the bin edges and the unresolved share report, from the training period only, before the validation and test periods are opened.
+* Reason: to lock the files by checksum before any value is read. The window and bins need a look at the training period.
+* Made before or after data access: before. Only file names, sizes, SHA256, row counts and the column names were read.
+* Effect on interpretation: none. The registration requirement that the window and bins are fixed before the validation and test periods are opened is unchanged.
+* D1: the dataset could not be retrieved on 14 November 2026. It is treated as ineligible under A1 section 3.1 and S1 is decided on D2 alone.
