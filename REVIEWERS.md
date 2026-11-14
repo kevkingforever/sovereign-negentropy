@@ -47,3 +47,17 @@ This file lists people who have agreed to be named as reviewers, with the date a
 | Duplicate sentence in this file | Removed. |
 
 To be listed, a reviewer sends a short note, or opens an issue, stating the scope of the review (for example: the mathematics of Chapters 2 to 5, the pre registration, or the verification programs) and the date.
+
+## Review 3: Amendment A1, 12 November 2026
+
+* Reviewer: Kofi Taylor.
+* Document reviewed: preregistration/AMENDMENT_A1.pdf, SHA256 ceac2e992772b3b18611d6ceab9004db886fcb7d13f50d3dd816a1112a1752b2.
+* Scope: sections 3.1 and 3.4 of A1. Not in scope: the rest of A1 and any data. No dataset was downloaded or analysed.
+* Also reported: S1 tests passed 13 of 13 on the reviewer's machine, and the registered hash was recorded.
+* Findings and resolution, recorded in Amendment A1.1 (SHA256 120aa87963569650ce79551abb1afc1a4cd550b36c67e6d6da88f1c1b05c4a42):
+
+| Finding | Resolution |
+|:---|:---|
+| 3.1: "spans at least 3 bootstrap blocks" can mean elapsed days or a window count, and they differ when windows are skipped | Fixed. Eligibility is counted in scored test windows. The code already did this. |
+| 3.4: the sentence saying the 3 day gap limits late inclusion holds only if the provider updates inclusion fields after its daily merge | Fixed. The provider's documentation does not say it does, so the sentence is withdrawn and the limit is stated. A2 reports the unresolved share by day and by hour of day in UTC. |
+
