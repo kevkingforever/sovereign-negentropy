@@ -2,7 +2,7 @@
 
 Code for the registered S1 comparison: does the entropy of the latency distribution
 predict the next window's 99th percentile latency beyond a queueing based model.
-It reads rows of arrival time and completion time. It has no dataset adapters yet.
+It reads rows of arrival time and completion time. It has an adapter for D2 (adapters.py) and the script that sets the A3 constants (freeze_a3.py). There is no D1 adapter: D1 could not be retrieved (Amendment A2).
 
 Status: public draft. Nothing here has touched real data. The registered S1 code is only the
 version that the code freeze tag points to. Until that tag exists, this folder can change.
@@ -18,8 +18,11 @@ Every change is visible in the commit history.
     run.py        split, purge, fit, test, decision rule
     synth.py      synthetic data for testing the machinery only
     limits.py     limits report printed with every run
+    adapters.py   D2 files to arrival and completion times, with a manifest check
+    freeze_a3.py  Amendment A3: window length, bin edges and unresolved share, from the training period only
+    tools/        fingerprint_files.py (names, sizes, SHA256, row counts only) and its 12 checks
     harness.py    null and planted runs on synthetic data
-    tests/        13 tests
+    tests/        19 tests
 
 Run from the repository root:
 
@@ -62,3 +65,16 @@ power at realistic sizes is not demonstrated. A proper power study comes next.
    the split edge are dropped when purge is on (default).
 5. Negative latencies (reviewer item 2). windows.Rows refuses any row that completes
    before it arrives. The adapter must apply the registered rule first.
+
+## Amendment A3 (training period constants)
+
+Run in Colab with the 28 files that Amendment A2 fixes:
+
+    python3 -m s1.freeze_a3 --folder FOLDER --manifest preregistration/manifests/manifest_d2.json --out a3_constants
+
+It first checks every file against the manifest and stops if one differs. It then reads arrival and inclusion time
+for all rows. The window length and bin edges use only rows that arrive before the end of the training period (the
+first 60 percent of the span from the first to the last arrival), with completions at or before that end. For all days
+it reports the share of rows with no inclusion time, by arrival day and by arrival hour in UTC (Amendment A1.1).
+tests/test_a3.py shows that changing every validation and test outcome leaves the window length and bin edges unchanged.
+The tools/ checks are run as scripts, not through pytest: `python3 s1/tools/test_fingerprint.py`.
