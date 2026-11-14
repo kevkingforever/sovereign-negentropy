@@ -9,7 +9,7 @@ Author: Kevin Ansong, independent researcher. Edition: October 2026.
 * This is a working paper. It has not yet been independently reviewed.
 * It proposes a framework and states testable hypotheses. It reports no empirical results.
 * The mathematics has been checked for internal consistency (see verification below). That is a check on the algebra and logic, not on whether the economics works.
-* The first empirical tests are pre registered (see the preregistration folder). No test has been run and no result is reported.
+* The first empirical tests are pre registered (see the preregistration folder), with two dated amendments (A1 and A1.1) registered on 12 November 2026. No test has been run and no result is reported.
 
 ## What is in this repository
 
@@ -19,7 +19,8 @@ Author: Kevin Ansong, independent researcher. Edition: October 2026.
 * verification/outputs/: saved output of one run of each program, with date, software versions and script hash.
 * verification/VERIFICATION.md: a map from every check to the statement in the paper it supports, including what no check covers and a record of the failures found along the way.
 * verification/requirements.txt: Python packages needed to rerun the checks.
-* preregistration/: the pre registration of the first empirical tests (version 1.1), the archived version 1.0, a deviations log and registration instructions.
+* preregistration/: the pre registration of the first empirical tests (version 1.1), Amendments A1 and A1.1, the archived version 1.0, a deviations log, REGISTRY.md (every document with its fingerprint and DOI) and registration instructions.
+* s1/: the code for registered test S1 and its 13 tests. A draft until the code freeze tag exists.
 * CONTRIBUTING.md and REVIEWERS.md: how to take part in review, and who has reviewed.
 * LICENSE: the MIT licence for the code. The paper has its own licence (see the end of this file).
 
@@ -56,9 +57,10 @@ The code, including the programs in the verification folder, is licensed under t
 ## Repository layout
 
 * paper/: the working paper, source and PDF, including Appendix D.
-* preregistration/: the registered tests (version 1.1), the deviations log and the archived version 1.0.
+* preregistration/: the registered tests (version 1.1), Amendments A1 and A1.1, the registry of fingerprints and DOIs, the deviations log and the archived version 1.0.
+* s1/: the S1 analysis code, its tests and a power study on synthetic data.
 * docs/: the Technical Annex describing the Phase 1 pilot.
-* telemetry/: the Phase 1 reference pipeline, its self checks, the lock benchmark and the saved results.
+* telemetry/: the Phase 1 reference pipeline, its 22 self checks, the lock benchmark and the saved results, including a second run on Google Colab.
 * verification/: the 47 offline checks of the paper's mathematics.
 
 ## Tools and assistance
@@ -72,3 +74,11 @@ The pre registration (version 1.1) was registered publicly on OSF Registries on 
 * Registration: https://osf.io/w6uan/
 * DOI: https://doi.org/10.17605/OSF.IO/W6UAN
 * Archive: https://doi.org/10.5281/zenodo.23869943
+
+Amendments to the registration, both registered on 12 November 2026 before any data were loaded:
+
+* A1: design decisions for S1. GitHub release `preregistration_a1`, Zenodo DOI https://doi.org/10.5281/zenodo.24167638, PDF SHA256 ceac2e992772b3b18611d6ceab9004db886fcb7d13f50d3dd816a1112a1752b2.
+* A1.1: two clarifications after reviewer comments. GitHub release `preregistration_a1_1`, Zenodo DOI https://doi.org/10.5281/zenodo.24170447, PDF SHA256 120aa87963569650ce79551abb1afc1a4cd550b36c67e6d6da88f1c1b05c4a42.
+* OSF registration of both: https://osf.io/ezpxf (project https://osf.io/wc4e8).
+
+The next record is Amendment A2, the data freeze. The full list is in preregistration/REGISTRY.md.
