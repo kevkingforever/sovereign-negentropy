@@ -1,0 +1,294 @@
+{
+  "label": "REHEARSAL on the first 14 days, training period only. NOT A RESULT",
+  "mode": "rehearsal",
+  "created_utc": "2026-11-14T22:07:59Z",
+  "git_tag": "",
+  "git_commit": "536ae4bc5c46d74e506247bec15d0dd15277b100",
+  "code_sha256": {
+    "run_d2.py": "6ae775f39f3ef638f373c718fdb8d60309c18b736bae80d04cb2019535f8df79",
+    "run.py": "7551b9e70f466ea547b8186d2352f2d572e060ea8eaf84910f711ada34023a29",
+    "windows.py": "70979efe21edec6ddf3ceea82b878cfc9d75ab80d50f5a2efb100358fc42461f",
+    "adapters.py": "c74b0595a41e81e7a0eceba26b90bde1be60e6a8a4fc0df053a0d4924a8245e9",
+    "models.py": "ae13c7edf84924e349e78bc2612dbc3ed514956ec248c672c60f4f8431cdadc5",
+    "stats.py": "d3fbd74f9f80862cd2dcb6e30c6d4fdcd167a8a7922e75928926b14c5e715168",
+    "queueing.py": "67a901106fbbd6e40a17f9ee735bc00396cb392c8bfbe04ef403ca7868b1fa83",
+    "limits.py": "9446b307f8ca07e0ef5737b1ce623c6c857a0d1fe2d04f42a55c7f8ff6f6db94",
+    "config.py": "8c2a85d968d027fafe8b3ee229d96a4589ce7251314915872ff1d2f9aab72d08"
+  },
+  "manifest_sha256": "12ca0cb8ee24cdd164a05bc247048682a8467151a36d9b889c42b22cdbf01148",
+  "a3_sha256": "9d036dec92621e3060ae234b202f374e12faeb0619e44c196115df615bb7ea5b",
+  "n_rows": 12061455,
+  "n_clipped": 1046223,
+  "decision": {
+    "holm_p": {},
+    "support": {
+      "D2": false
+    },
+    "outcome": "Not testable",
+    "ineligible": [
+      "D2"
+    ]
+  },
+  "primary": {
+    "W": 300.0,
+    "n_train": 2125,
+    "n_val": 517,
+    "n_test": 529,
+    "loss_g1": 140.0419988932442,
+    "loss_g2": 149.24830272532176,
+    "R": -0.06573959172844757,
+    "ci": [
+      -0.34032645336649575,
+      -0.01609069480309287
+    ],
+    "p_raw": 0.9411658151040695,
+    "block": 288,
+    "eligible": false,
+    "params_g1": {
+      "learning_rate": 0.05,
+      "max_depth": 3,
+      "max_iter": 150,
+      "min_samples_leaf": 10
+    },
+    "params_g2": {
+      "learning_rate": 0.05,
+      "max_depth": 3,
+      "max_iter": 150,
+      "min_samples_leaf": 10
+    },
+    "baselines": {
+      "P0": 264.8894646407822,
+      "P1": 244.50027499472583,
+      "Q1": 246.50993574191804,
+      "Q2": 860.4663877073809
+    },
+    "log_scale": {
+      "R": -0.06065272349217743,
+      "p": 0.9245913498508977
+    },
+    "surge": {
+      "threshold": 3950.3999999999996,
+      "n": 53,
+      "R": -0.27929270368638726
+    },
+    "brier": {
+      "threshold": 116.84600019454956,
+      "event_rate": 0.21361058601134217,
+      "G1": 0.7863894139886578,
+      "G2": 0.7863894139886578,
+      "note": "binary forecast: the model forecast exceeds the threshold"
+    },
+    "limits": {
+      "warnings": [
+        "test period spans 1.8 bootstrap blocks (288 windows each): fewer than 3, so the dataset is ineligible under amendment A1",
+        "constant or empty features in training: q2",
+        "selected at the edge of the grid: G1.max_iter=150, G1.learning_rate=0.05, G2.max_iter=150, G2.learning_rate=0.05",
+        "855 windows dropped by the purge rule"
+      ],
+      "collapsed": false,
+      "mean_rel_diff": 0.26063405880692153,
+      "constant_features": [
+        "q2"
+      ],
+      "unresolved_share": 0.02150221511417984
+    }
+  },
+  "secondary": {
+    "drop_clipped_rows": {
+      "W": 300.0,
+      "n_train": 2125,
+      "n_val": 517,
+      "n_test": 529,
+      "loss_g1": 160.88017936512333,
+      "loss_g2": 156.28771557853125,
+      "R": 0.028545864411111288,
+      "ci": [
+        -0.02438627872097217,
+        0.3104898734936803
+      ],
+      "p_raw": 0.2225400659229737,
+      "block": 288,
+      "eligible": false,
+      "params_g1": {
+        "learning_rate": 0.05,
+        "max_depth": 3,
+        "max_iter": 150,
+        "min_samples_leaf": 10
+      },
+      "params_g2": {
+        "learning_rate": 0.05,
+        "max_depth": 3,
+        "max_iter": 150,
+        "min_samples_leaf": 30
+      },
+      "baselines": {
+        "P0": 267.2918967224539,
+        "P1": 245.24464095076902,
+        "Q1": 246.93377446784865,
+        "Q2": 860.4061772389695
+      },
+      "log_scale": {
+        "R": -0.0618397274154594,
+        "p": 0.7989508775965115
+      },
+      "surge": {
+        "threshold": 3613.0,
+        "n": 53,
+        "R": -0.3668608607032151
+      },
+      "brier": {
+        "threshold": 125.47050020217898,
+        "event_rate": 0.22495274102079396,
+        "G1": 0.775047258979206,
+        "G2": 0.775047258979206,
+        "note": "binary forecast: the model forecast exceeds the threshold"
+      },
+      "limits": {
+        "warnings": [
+          "test period spans 1.8 bootstrap blocks (288 windows each): fewer than 3, so the dataset is ineligible under amendment A1",
+          "constant or empty features in training: q2",
+          "selected at the edge of the grid: G1.max_iter=150, G1.learning_rate=0.05, G2.max_iter=150, G2.learning_rate=0.05",
+          "855 windows dropped by the purge rule"
+        ],
+        "collapsed": false,
+        "mean_rel_diff": 0.4094090179691706,
+        "constant_features": [
+          "q2"
+        ],
+        "unresolved_share": 0.023544488214138386
+      }
+    },
+    "unresolved_as_24h": {
+      "W": 300.0,
+      "n_train": 2125,
+      "n_val": 517,
+      "n_test": 529,
+      "loss_g1": 187.1068887775547,
+      "loss_g2": 187.1068887775547,
+      "R": 0.0,
+      "ci": [
+        0.0,
+        0.0
+      ],
+      "p_raw": 1.0,
+      "block": 288,
+      "eligible": false,
+      "params_g1": {
+        "learning_rate": 0.05,
+        "max_depth": 3,
+        "max_iter": 150,
+        "min_samples_leaf": 10
+      },
+      "params_g2": {
+        "learning_rate": 0.05,
+        "max_depth": 3,
+        "max_iter": 150,
+        "min_samples_leaf": 10
+      },
+      "baselines": {
+        "P0": 66668.93222331369,
+        "P1": 66662.16743607107,
+        "Q1": 66742.19405842033,
+        "Q2": 187.1068887774993
+      },
+      "log_scale": {
+        "R": 0.0,
+        "p": 1.0
+      },
+      "surge": {
+        "threshold": 3950.3999999999996,
+        "n": 53,
+        "R": 0.0
+      },
+      "brier": {
+        "threshold": 172800.0,
+        "event_rate": 0.0,
+        "G1": 0.0,
+        "G2": 0.0,
+        "note": "binary forecast: the model forecast exceeds the threshold"
+      },
+      "limits": {
+        "warnings": [
+          "test period spans 1.8 bootstrap blocks (288 windows each): fewer than 3, so the dataset is ineligible under amendment A1",
+          "G1 and G2 forecasts nearly identical (mean relative difference 0.0000): collapsed",
+          "G1 forecasts are near constant (sd over mean 0.000)",
+          "G2 forecasts are near constant (sd over mean 0.000)",
+          "constant or empty features in training: q2",
+          "selected at the edge of the grid: G1.max_iter=150, G1.learning_rate=0.05, G2.max_iter=150, G2.learning_rate=0.05",
+          "855 windows dropped by the purge rule"
+        ],
+        "collapsed": true,
+        "mean_rel_diff": 0.0,
+        "constant_features": [
+          "q2"
+        ],
+        "unresolved_share": 0.02150221511417984
+      }
+    },
+    "value_weighted_entropy": {
+      "W": 300.0,
+      "n_train": 2125,
+      "n_val": 517,
+      "n_test": 529,
+      "loss_g1": 140.0419988932442,
+      "loss_g2": 143.0839901009254,
+      "R": -0.02172199220035531,
+      "ci": [
+        -0.16244534090204385,
+        0.007426483605334825
+      ],
+      "p_raw": 0.7551304312122751,
+      "block": 288,
+      "eligible": false,
+      "params_g1": {
+        "learning_rate": 0.05,
+        "max_depth": 3,
+        "max_iter": 150,
+        "min_samples_leaf": 10
+      },
+      "params_g2": {
+        "learning_rate": 0.05,
+        "max_depth": 3,
+        "max_iter": 150,
+        "min_samples_leaf": 10
+      },
+      "baselines": {
+        "P0": 264.8894646407822,
+        "P1": 244.50027499472583,
+        "Q1": 246.50993574191804,
+        "Q2": 860.4663877073809
+      },
+      "log_scale": {
+        "R": -0.0012290744647622809,
+        "p": 0.5127278614698232
+      },
+      "surge": {
+        "threshold": 3950.3999999999996,
+        "n": 53,
+        "R": 0.08218534442464154
+      },
+      "brier": {
+        "threshold": 116.84600019454956,
+        "event_rate": 0.21361058601134217,
+        "G1": 0.7863894139886578,
+        "G2": 0.7863894139886578,
+        "note": "binary forecast: the model forecast exceeds the threshold"
+      },
+      "limits": {
+        "warnings": [
+          "test period spans 1.8 bootstrap blocks (288 windows each): fewer than 3, so the dataset is ineligible under amendment A1",
+          "constant or empty features in training: q2",
+          "selected at the edge of the grid: G1.max_iter=150, G1.learning_rate=0.05, G2.max_iter=150, G2.learning_rate=0.05",
+          "855 windows dropped by the purge rule"
+        ],
+        "collapsed": false,
+        "mean_rel_diff": 0.4756076919724262,
+        "constant_features": [
+          "q2"
+        ],
+        "unresolved_share": 0.02150221511417984
+      }
+    }
+  },
+  "report": "=== REHEARSAL on the first 14 days, training period only. NOT A RESULT ===\nrows 12061455, clipped to the latency floor 1046223 (8.67%)\nW 300 s, windows: train 2125, validation 517, test 529, block 288 windows, eligible False\npinball loss at 0.99 (original scale): G1 140.0420, G2 149.2483\nR = -0.0657   95% interval (-0.3403, -0.0161)   one sided DM p = 0.9412\nbaselines (mean pinball): P0 264.8895, P1 244.5003, Q1 246.5099, Q2 860.4664\nlog scale: R -0.0607, p 0.9246\nsurge windows: {'threshold': 3950.3999999999996, 'n': 53, 'R': -0.27929270368638726}\nBrier (binary forecast): {'threshold': 116.84600019454956, 'event_rate': 0.21361058601134217, 'G1': 0.7863894139886578, 'G2': 0.7863894139886578, 'note': 'binary forecast: the model forecast exceeds the threshold'}\nDECISION: {'holm_p': {}, 'support': {'D2': False}, 'outcome': 'Not testable', 'ineligible': ['D2']}\nLimits:\n  * test period spans 1.8 bootstrap blocks (288 windows each): fewer than 3, so the dataset is ineligible under amendment A1\n  * constant or empty features in training: q2\n  * selected at the edge of the grid: G1.max_iter=150, G1.learning_rate=0.05, G2.max_iter=150, G2.learning_rate=0.05\n  * 855 windows dropped by the purge rule\nsecondary runs (no decision rule):\n  drop_clipped_rows: R +0.0285, interval (-0.0244, +0.3105), p 0.2225, test windows 529\n  unresolved_as_24h: R +0.0000, interval (+0.0000, +0.0000), p 1.0000, test windows 529\n  value_weighted_entropy: R -0.0217, interval (-0.1624, +0.0074), p 0.7551, test windows 529"
+}

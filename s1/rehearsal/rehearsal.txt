@@ -1,0 +1,19 @@
+=== REHEARSAL on the first 14 days, training period only. NOT A RESULT ===
+rows 12061455, clipped to the latency floor 1046223 (8.67%)
+W 300 s, windows: train 2125, validation 517, test 529, block 288 windows, eligible False
+pinball loss at 0.99 (original scale): G1 140.0420, G2 149.2483
+R = -0.0657   95% interval (-0.3403, -0.0161)   one sided DM p = 0.9412
+baselines (mean pinball): P0 264.8895, P1 244.5003, Q1 246.5099, Q2 860.4664
+log scale: R -0.0607, p 0.9246
+surge windows: {'threshold': 3950.3999999999996, 'n': 53, 'R': -0.27929270368638726}
+Brier (binary forecast): {'threshold': 116.84600019454956, 'event_rate': 0.21361058601134217, 'G1': 0.7863894139886578, 'G2': 0.7863894139886578, 'note': 'binary forecast: the model forecast exceeds the threshold'}
+DECISION: {'holm_p': {}, 'support': {'D2': False}, 'outcome': 'Not testable', 'ineligible': ['D2']}
+Limits:
+  * test period spans 1.8 bootstrap blocks (288 windows each): fewer than 3, so the dataset is ineligible under amendment A1
+  * constant or empty features in training: q2
+  * selected at the edge of the grid: G1.max_iter=150, G1.learning_rate=0.05, G2.max_iter=150, G2.learning_rate=0.05
+  * 855 windows dropped by the purge rule
+secondary runs (no decision rule):
+  drop_clipped_rows: R +0.0285, interval (-0.0244, +0.3105), p 0.2225, test windows 529
+  unresolved_as_24h: R +0.0000, interval (+0.0000, +0.0000), p 1.0000, test windows 529
+  value_weighted_entropy: R -0.0217, interval (-0.1624, +0.0074), p 0.7551, test windows 529
