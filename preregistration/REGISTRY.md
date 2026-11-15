@@ -1,6 +1,6 @@
 # Registration record for S1
 
-Each entry gives the document, its date, its PDF SHA256, and where it is archived. Read in this order: the registration, then A1, then A1.1. Where a later document speaks, it wins.
+Each entry gives the document, its date, its PDF SHA256, and where it is archived. Read in this order: the registration, then A1, A1.1, A2 and A3. Where a later document speaks, it wins.
 
 | Document | Date | PDF SHA256 | GitHub release | Zenodo DOI |
 |---|---|---|---|---|
@@ -18,4 +18,8 @@ A2 records the 28 Ethereum files with their checksums and the D1 status. Its OSF
 
 A3 fixes the window length (300 seconds) and the 21 bin edges from the training period only, and reports the unresolved share by day and by hour (A1.1). Its output files are in preregistration/a3/: a3_constants.json SHA256 9d036dec92621e3060ae234b202f374e12faeb0619e44c196115df615bb7ea5b, a3_constants_unresolved_by_day.csv SHA256 b48d683f4de40e421ede09fdbe761aa1e3329154def6066c2567a2fc4f2db1c4, a3_constants_unresolved_by_hour.csv SHA256 0e7e71d2007357d596391db4adea03c557935c2fd2fbaa2088faa7e283bd6a90. OSF copy of A3: registered on 14 November 2026 at 21:45 UTC, accepted, at osf.io/kb3ar (associated project osf.io/ujkny). OSF was unavailable earlier that day, so the registration followed the Zenodo release by several hours. The OSF description carries the same PDF SHA256 (3f002256...) and Zenodo DOI.
 
-Next: the code freeze tag for the S1 code, one run of S1 on D2, reproduction by a reviewer, and publication of the result within 30 days.
+Code freeze: GitHub release and tag s1-code-freeze-v1, commit a1d8e582ab21839b105efdb86eb5aee383ac8b97, Zenodo DOI 10.5281/zenodo.24248900, made on 15 November 2026 after a rehearsal on training days only (s1/rehearsal/, not a result).
+
+Run: S1 was run once on D2 on 15 November 2026 at 16:00 UTC with the frozen code. Outcome: Not supported (R +0.0197, interval -0.2519 to +0.1012, one sided p 0.3675). Full report and unedited output files are in s1/result/. The code hashes in the output equal those of the rehearsal.
+
+Next: reproduction by a reviewer (no deadline), registration of the result on OSF, and publication of the result within 30 days of the run, by 15 December 2026.
