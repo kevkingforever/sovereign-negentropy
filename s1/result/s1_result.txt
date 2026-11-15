@@ -1,0 +1,18 @@
+=== S1 RUN on D2 (Ethereum) ===
+rows 25155158, clipped to the latency floor 2245086 (8.92%)
+W 300 s, windows: train 4544, validation 1317, test 1328, block 288 windows, eligible True
+pinball loss at 0.99 (original scale): G1 103.2676, G2 101.2339
+R = +0.0197   95% interval (-0.2519, +0.1012)   one sided DM p = 0.3675
+baselines (mean pinball): P0 133.7273, P1 127.1403, Q1 131.1386, Q2 862.2871
+log scale: R -0.0043, p 0.5354
+surge windows: {'threshold': 3888.449999999999, 'n': 239, 'R': -0.03900364356541619}
+Brier (binary forecast): {'threshold': 116.42466004371639, 'event_rate': 0.07228915662650602, 'G1': 0.927710843373494, 'G2': 0.927710843373494, 'note': 'binary forecast: the model forecast exceeds the threshold'}
+DECISION: {'holm_p': {'D2': 0.3674933197433383}, 'support': {'D2': False}, 'outcome': 'Not supported', 'ineligible': []}
+Limits:
+  * constant or empty features in training: q2
+  * selected at the edge of the grid: G1.max_iter=400, G1.learning_rate=0.05, G2.max_iter=150, G2.learning_rate=0.05
+  * 860 windows dropped by the purge rule
+secondary runs (no decision rule):
+  drop_clipped_rows: R +0.0471, interval (-0.0557, +0.1458), p 0.1458, test windows 1328
+  unresolved_as_24h: R +0.0000, interval (+0.0000, +0.0000), p 1.0000, test windows 1328
+  value_weighted_entropy: R +0.0254, interval (-0.1978, +0.0843), p 0.3274, test windows 1328

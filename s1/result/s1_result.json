@@ -1,0 +1,290 @@
+{
+  "label": "S1 RUN on D2 (Ethereum)",
+  "mode": "run",
+  "created_utc": "2026-11-15T16:00:30Z",
+  "git_tag": "s1-code-freeze-v1",
+  "git_commit": "a1d8e582ab21839b105efdb86eb5aee383ac8b97",
+  "code_sha256": {
+    "run_d2.py": "6ae775f39f3ef638f373c718fdb8d60309c18b736bae80d04cb2019535f8df79",
+    "run.py": "7551b9e70f466ea547b8186d2352f2d572e060ea8eaf84910f711ada34023a29",
+    "windows.py": "70979efe21edec6ddf3ceea82b878cfc9d75ab80d50f5a2efb100358fc42461f",
+    "adapters.py": "c74b0595a41e81e7a0eceba26b90bde1be60e6a8a4fc0df053a0d4924a8245e9",
+    "models.py": "ae13c7edf84924e349e78bc2612dbc3ed514956ec248c672c60f4f8431cdadc5",
+    "stats.py": "d3fbd74f9f80862cd2dcb6e30c6d4fdcd167a8a7922e75928926b14c5e715168",
+    "queueing.py": "67a901106fbbd6e40a17f9ee735bc00396cb392c8bfbe04ef403ca7868b1fa83",
+    "limits.py": "9446b307f8ca07e0ef5737b1ce623c6c857a0d1fe2d04f42a55c7f8ff6f6db94",
+    "config.py": "8c2a85d968d027fafe8b3ee229d96a4589ce7251314915872ff1d2f9aab72d08"
+  },
+  "manifest_sha256": "12ca0cb8ee24cdd164a05bc247048682a8467151a36d9b889c42b22cdbf01148",
+  "a3_sha256": "9d036dec92621e3060ae234b202f374e12faeb0619e44c196115df615bb7ea5b",
+  "n_rows": 25155158,
+  "n_clipped": 2245086,
+  "decision": {
+    "holm_p": {
+      "D2": 0.3674933197433383
+    },
+    "support": {
+      "D2": false
+    },
+    "outcome": "Not supported",
+    "ineligible": []
+  },
+  "primary": {
+    "W": 300.0,
+    "n_train": 4544,
+    "n_val": 1317,
+    "n_test": 1328,
+    "loss_g1": 103.26758233475012,
+    "loss_g2": 101.23393660710207,
+    "R": 0.019692973164180616,
+    "ci": [
+      -0.2519334368930541,
+      0.10118899470922486
+    ],
+    "p_raw": 0.3674933197433383,
+    "block": 288,
+    "eligible": true,
+    "params_g1": {
+      "learning_rate": 0.05,
+      "max_depth": 5,
+      "max_iter": 400,
+      "min_samples_leaf": 30
+    },
+    "params_g2": {
+      "learning_rate": 0.05,
+      "max_depth": 5,
+      "max_iter": 150,
+      "min_samples_leaf": 10
+    },
+    "baselines": {
+      "P0": 133.7273111702491,
+      "P1": 127.14033705064297,
+      "Q1": 131.13862326583168,
+      "Q2": 862.2870719625733
+    },
+    "log_scale": {
+      "R": -0.004279805075860343,
+      "p": 0.5353852020153054
+    },
+    "surge": {
+      "threshold": 3888.449999999999,
+      "n": 239,
+      "R": -0.03900364356541619
+    },
+    "brier": {
+      "threshold": 116.42466004371639,
+      "event_rate": 0.07228915662650602,
+      "G1": 0.927710843373494,
+      "G2": 0.927710843373494,
+      "note": "binary forecast: the model forecast exceeds the threshold"
+    },
+    "limits": {
+      "warnings": [
+        "constant or empty features in training: q2",
+        "selected at the edge of the grid: G1.max_iter=400, G1.learning_rate=0.05, G2.max_iter=150, G2.learning_rate=0.05",
+        "860 windows dropped by the purge rule"
+      ],
+      "collapsed": false,
+      "mean_rel_diff": 1.0861266506513214,
+      "constant_features": [
+        "q2"
+      ],
+      "unresolved_share": 0.015314513230248843
+    }
+  },
+  "secondary": {
+    "drop_clipped_rows": {
+      "W": 300.0,
+      "n_train": 4544,
+      "n_val": 1317,
+      "n_test": 1328,
+      "loss_g1": 107.8704180972633,
+      "loss_g2": 102.79291309184923,
+      "R": 0.047070411842066284,
+      "ci": [
+        -0.05567087806587683,
+        0.1457694859076793
+      ],
+      "p_raw": 0.1458164316078624,
+      "block": 288,
+      "eligible": true,
+      "params_g1": {
+        "learning_rate": 0.05,
+        "max_depth": 5,
+        "max_iter": 400,
+        "min_samples_leaf": 30
+      },
+      "params_g2": {
+        "learning_rate": 0.15,
+        "max_depth": 5,
+        "max_iter": 150,
+        "min_samples_leaf": 30
+      },
+      "baselines": {
+        "P0": 137.31075675461227,
+        "P1": 129.46888950131552,
+        "Q1": 133.22173761362055,
+        "Q2": 862.2396689635696
+      },
+      "log_scale": {
+        "R": 0.01629691039855441,
+        "p": 0.2020121953242242
+      },
+      "surge": {
+        "threshold": 3568.0,
+        "n": 208,
+        "R": -0.037612537823146
+      },
+      "brier": {
+        "threshold": 121.67336980819678,
+        "event_rate": 0.07906626506024096,
+        "G1": 0.920933734939759,
+        "G2": 0.920933734939759,
+        "note": "binary forecast: the model forecast exceeds the threshold"
+      },
+      "limits": {
+        "warnings": [
+          "constant or empty features in training: q2",
+          "selected at the edge of the grid: G1.max_iter=400, G1.learning_rate=0.05, G2.max_iter=150, G2.learning_rate=0.15",
+          "860 windows dropped by the purge rule"
+        ],
+        "collapsed": false,
+        "mean_rel_diff": 0.5831778757350865,
+        "constant_features": [
+          "q2"
+        ],
+        "unresolved_share": 0.016815267974714353
+      }
+    },
+    "unresolved_as_24h": {
+      "W": 300.0,
+      "n_train": 4544,
+      "n_val": 1322,
+      "n_test": 1328,
+      "loss_g1": 752.5103342703841,
+      "loss_g2": 752.5103342703841,
+      "R": 0.0,
+      "ci": [
+        0.0,
+        0.0
+      ],
+      "p_raw": 1.0,
+      "block": 288,
+      "eligible": true,
+      "params_g1": {
+        "learning_rate": 0.05,
+        "max_depth": 3,
+        "max_iter": 150,
+        "min_samples_leaf": 10
+      },
+      "params_g2": {
+        "learning_rate": 0.05,
+        "max_depth": 3,
+        "max_iter": 150,
+        "min_samples_leaf": 10
+      },
+      "baselines": {
+        "P0": 10960.183544306634,
+        "P1": 10956.305088488161,
+        "Q1": 10990.985322999382,
+        "Q2": 752.5103342703758
+      },
+      "log_scale": {
+        "R": 0.0,
+        "p": 1.0
+      },
+      "surge": {
+        "threshold": 3888.449999999999,
+        "n": 239,
+        "R": 0.0
+      },
+      "brier": {
+        "threshold": 172800.0,
+        "event_rate": 0.0,
+        "G1": 0.0,
+        "G2": 0.0,
+        "note": "binary forecast: the model forecast exceeds the threshold"
+      },
+      "limits": {
+        "warnings": [
+          "G1 and G2 forecasts nearly identical (mean relative difference 0.0000): collapsed",
+          "G1 forecasts are near constant (sd over mean 0.000)",
+          "G2 forecasts are near constant (sd over mean 0.000)",
+          "constant or empty features in training: q2",
+          "selected at the edge of the grid: G1.max_iter=150, G1.learning_rate=0.05, G2.max_iter=150, G2.learning_rate=0.05",
+          "855 windows dropped by the purge rule"
+        ],
+        "collapsed": true,
+        "mean_rel_diff": 0.0,
+        "constant_features": [
+          "q2"
+        ],
+        "unresolved_share": 0.015314513230248843
+      }
+    },
+    "value_weighted_entropy": {
+      "W": 300.0,
+      "n_train": 4544,
+      "n_val": 1317,
+      "n_test": 1328,
+      "loss_g1": 103.26758233475012,
+      "loss_g2": 100.64359600049546,
+      "R": 0.02540958425606199,
+      "ci": [
+        -0.19781956241122398,
+        0.08429018882828408
+      ],
+      "p_raw": 0.3274183913519586,
+      "block": 288,
+      "eligible": true,
+      "params_g1": {
+        "learning_rate": 0.05,
+        "max_depth": 5,
+        "max_iter": 400,
+        "min_samples_leaf": 30
+      },
+      "params_g2": {
+        "learning_rate": 0.05,
+        "max_depth": 5,
+        "max_iter": 400,
+        "min_samples_leaf": 10
+      },
+      "baselines": {
+        "P0": 133.7273111702491,
+        "P1": 127.14033705064297,
+        "Q1": 131.13862326583168,
+        "Q2": 862.2870719625733
+      },
+      "log_scale": {
+        "R": -0.036754913315269366,
+        "p": 0.7426329763873197
+      },
+      "surge": {
+        "threshold": 3888.449999999999,
+        "n": 239,
+        "R": -0.056873326285721504
+      },
+      "brier": {
+        "threshold": 116.42466004371639,
+        "event_rate": 0.07228915662650602,
+        "G1": 0.927710843373494,
+        "G2": 0.9262048192771084,
+        "note": "binary forecast: the model forecast exceeds the threshold"
+      },
+      "limits": {
+        "warnings": [
+          "constant or empty features in training: q2",
+          "selected at the edge of the grid: G1.max_iter=400, G1.learning_rate=0.05, G2.max_iter=400, G2.learning_rate=0.05",
+          "860 windows dropped by the purge rule"
+        ],
+        "collapsed": false,
+        "mean_rel_diff": 0.9586339127758735,
+        "constant_features": [
+          "q2"
+        ],
+        "unresolved_share": 0.015314513230248843
+      }
+    }
+  },
+  "report": "=== S1 RUN on D2 (Ethereum) ===\nrows 25155158, clipped to the latency floor 2245086 (8.92%)\nW 300 s, windows: train 4544, validation 1317, test 1328, block 288 windows, eligible True\npinball loss at 0.99 (original scale): G1 103.2676, G2 101.2339\nR = +0.0197   95% interval (-0.2519, +0.1012)   one sided DM p = 0.3675\nbaselines (mean pinball): P0 133.7273, P1 127.1403, Q1 131.1386, Q2 862.2871\nlog scale: R -0.0043, p 0.5354\nsurge windows: {'threshold': 3888.449999999999, 'n': 239, 'R': -0.03900364356541619}\nBrier (binary forecast): {'threshold': 116.42466004371639, 'event_rate': 0.07228915662650602, 'G1': 0.927710843373494, 'G2': 0.927710843373494, 'note': 'binary forecast: the model forecast exceeds the threshold'}\nDECISION: {'holm_p': {'D2': 0.3674933197433383}, 'support': {'D2': False}, 'outcome': 'Not supported', 'ineligible': []}\nLimits:\n  * constant or empty features in training: q2\n  * selected at the edge of the grid: G1.max_iter=400, G1.learning_rate=0.05, G2.max_iter=150, G2.learning_rate=0.05\n  * 860 windows dropped by the purge rule\nsecondary runs (no decision rule):\n  drop_clipped_rows: R +0.0471, interval (-0.0557, +0.1458), p 0.1458, test windows 1328\n  unresolved_as_24h: R +0.0000, interval (+0.0000, +0.0000), p 1.0000, test windows 1328\n  value_weighted_entropy: R +0.0254, interval (-0.1978, +0.0843), p 0.3274, test windows 1328"
+}
