@@ -7,9 +7,9 @@ Author: Kevin Ansong, independent researcher. Edition: October 2026.
 ## Status
 
 * This is a working paper. It has not yet been independently reviewed.
-* It proposes a framework and states testable hypotheses. It reports no empirical results.
+* It proposes a framework and states testable hypotheses. One has been tested: registered test S1 on Ethereum data returned **Not supported** on 15 November 2026 (see s1/result/RESULT.md). The other hypotheses are untested.
 * The mathematics has been checked for internal consistency (see verification below). That is a check on the algebra and logic, not on whether the economics works.
-* The first empirical tests are pre registered (see the preregistration folder), with two dated amendments (A1 and A1.1) registered on 12 November 2026 and a data freeze amendment (A2) registered on 14 November 2026. No test has been run and no result is reported.
+* The first empirical tests are pre registered (see the preregistration folder), with two dated amendments (A1 and A1.1) registered on 12 November 2026 a data freeze amendment (A2) and a training constants amendment (A3) registered on 14 November 2026. S1 was run once on 15 November 2026 with the frozen code (tag s1-code-freeze-v1, Zenodo DOI 10.5281/zenodo.24248900). The result is Not supported and is reported in full in s1/result/. An independent reproduction by a reviewer is pending.
 
 ## What is in this repository
 
@@ -20,7 +20,7 @@ Author: Kevin Ansong, independent researcher. Edition: October 2026.
 * verification/VERIFICATION.md: a map from every check to the statement in the paper it supports, including what no check covers and a record of the failures found along the way.
 * verification/requirements.txt: Python packages needed to rerun the checks.
 * preregistration/: the pre registration of the first empirical tests (version 1.1), Amendments A1 and A1.1, the archived version 1.0, a deviations log, REGISTRY.md (every document with its fingerprint and DOI) and registration instructions.
-* s1/: the code for registered test S1 and its 13 tests. A draft until the code freeze tag exists.
+* s1/: the code for registered test S1 and its 25 tests, frozen at tag s1-code-freeze-v1. The S1 result is in s1/result/ and the rehearsal outputs, which are not a result, are in s1/rehearsal/.
 * CONTRIBUTING.md and REVIEWERS.md: how to take part in review, and who has reviewed.
 * LICENSE: the MIT licence for the code. The paper has its own licence (see the end of this file).
 
