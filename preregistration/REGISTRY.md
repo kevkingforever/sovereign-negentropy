@@ -22,4 +22,6 @@ Code freeze: GitHub release and tag s1-code-freeze-v1, commit a1d8e582ab21839b10
 
 Run: S1 was run once on D2 on 15 November 2026 at 16:00 UTC with the frozen code. Outcome: Not supported (R +0.0197, interval -0.2519 to +0.1012, one sided p 0.3675). Full report and unedited output files are in s1/result/. The code hashes in the output equal those of the rehearsal.
 
-Next: reproduction by a reviewer (no deadline), registration of the result on OSF, and publication of the result within 30 days of the run, by 15 December 2026.
+OSF registration of the result: https://osf.io/xz6su (project https://osf.io/76j3d), Open Ended Registration, registered 15 November 2026 at 20:13 UTC, accepted. The description carries the SHA256 of s1_result.json and s1_result.txt, and the three result files and the run notebook are attached.
+
+Next: reproduction by a reviewer (no deadline), and publication of the result within 30 days of the run, by 15 December 2026.
