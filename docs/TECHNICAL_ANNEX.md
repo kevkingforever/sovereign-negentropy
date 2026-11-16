@@ -30,8 +30,8 @@ What exists today:
 
 * The paper has not been independently reviewed.
 * Its mathematics has been checked by 47 offline programmatic checks (28 numerical and 19 symbolic). They test internal consistency only. They do not test whether the economics works.
-* Every empirical claim in the paper is a hypothesis. None has been tested.
-* A pre registered protocol (version 1.1) fixes the first tests and states what result would end the entropy claim.
+* The paper's empirical claims are hypotheses. The first, that the friction entropy index predicts tail latency, was tested once on 15 November 2026 on public Ethereum data and was not supported. The result is published in full in the open repository. No other claim has been tested.
+* A pre registered protocol (version 1.1, with amendments A1 to A3) fixed the first test and stated what result would end the entropy claim.
 
 Phase 1 does not depend on the paper being right. It produces measurements of settlement delay, retries, failures and queue behaviour that are useful to the operator whatever the index shows.
 
@@ -40,7 +40,7 @@ Phase 1 does not depend on the paper being right. It produces measurements of se
 ### 3.1 What is measured
 
 * Lifecycle stage durations for each transaction: initiation, authentication, routing and transit, clearing wait, settlement confirmation.
-* Latency quantiles (median, 90th and 99th percentile) per stage and end to end, by 10 minute window.
+* Latency quantiles (median, 90th and 99th percentile) per stage and end to end, by time window, with the length set from the data volume.
 * Retry counts, webhook retransmissions, error and failure rates.
 * Queue utilisation estimates and arrival rates.
 * Fees charged per transaction band.
@@ -159,7 +159,7 @@ Residual risks that remain after these controls: conversion cost and delay durin
 * The first tests are fixed in the pre registration (version 1.1). They state what counts as support, failure and an inconclusive result.
 * An evaluator independent of the author reviews the Phase 1 results. The evaluator is to be designated through a University of Ghana or external peer review track.
 * Code, definitions and aggregate results are published in the open repository. Deviations from the registration are logged and labelled.
-* If the entropy predictor is not supported, the paper is revised to say so within 30 days of the analysis.
+* The entropy predictor was not supported on 15 November 2026. The paper is being revised to say so, within 30 days of that result.
 
 ## 7. Team and governance
 
@@ -183,7 +183,7 @@ Residual risks that remain after these controls: conversion cost and delay durin
 | Claim | Status | Basis |
 |:--------------------------|:------------------|:----------------------------------------------|
 | The paper's mathematics is internally consistent | Checked | 47 offline checks (28 numerical, 19 symbolic). They do not test the economics |
-| The friction entropy index predicts tail latency | Hypothesis | Pre registered test S1. No result yet |
+| The friction entropy index predicts tail latency | Not supported | Pre registered test S1, run once on 15 November 2026. R was plus 0.0197, with a 95 percent interval from minus 0.2519 to plus 0.1012 and one sided p of 0.3675. Published in full |
 | Demurrage with a utility offset retains balances | Hypothesis | Retention condition proved under stated assumptions (Proposition 4). Empirical retention untested |
 | A velocity dependent fee raises velocity without lowering volume | Hypothesis | Untested. The levy elasticity estimate (S2) covers a flat fee only |
 | A 0.05 percent fee funds 20 percent of GDP | Arithmetic | Requires taxed turnover of 400 times GDP (Proposition 9). Not a proposal to replace tax revenue |
