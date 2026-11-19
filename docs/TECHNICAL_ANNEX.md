@@ -1,8 +1,8 @@
 ---
 title: "Passive Friction Measurement Pilot in Ghana's Digital Payment Corridors"
 subtitle: "Technical Annex, shared by all cover notes"
-author: "Kevin Ansong, Independent Researcher. Status: proposal for review, not endorsed by any institution"
-date: "Version 1.4, 9 November 2026"
+author: "Kevin Ansong, Independent Researcher"
+date: "Version 1.5, 18 November 2026. Status: proposal for review, not endorsed by any institution."
 ---
 
 ## 1. Summary
@@ -17,7 +17,7 @@ The work is led by Kevin Ansong, Independent Researcher. It is open source, and 
 
 Operators already measure delay inside their own systems. This request adds two things.
 
-* **An open measurement standard.** Every transaction is split into the same lifecycle stages: initiation, authentication, routing and transit, clearing wait, and settlement confirmation. Latency quantiles (median, 90th and 99th percentile), retries, failures and queue load are computed per stage and end to end in 10 minute windows. Two entropy figures summarise how the timings are spread: the entropy of the latency distribution, and the entropy of where in flight time is spent across stages (this second figure is reserved for Phase 1 operator logs, and the reference code reports a different, descriptive stage entropy; see Section 3.1). The definition is written down so that any operator, the regulator or an independent engineer can compute the same figures from the same logs. Section 3 gives the data minimisation rules.
+* **An open measurement standard.** Every transaction is split into the same lifecycle stages: initiation, authentication, routing and transit, clearing wait, and settlement confirmation. Latency quantiles (median, 90th and 99th percentile), retries, failures and queue load are computed per stage and end to end in time windows, with the length set from the data volume. Two entropy figures summarise how the timings are spread: the entropy of the latency distribution, and the entropy of where in flight time is spent across stages (this second figure is reserved for Phase 1 operator logs, and the reference code reports a different, descriptive stage entropy; see Section 3.1). The definition is written down so that any operator, the regulator or an independent engineer can compute the same figures from the same logs. Section 3 gives the data minimisation rules.
 * **A registered test.** The pre registration (OSF, https://osf.io/w6uan/) tests whether the entropy of the latency distribution predicts the 99th percentile latency of the next window beyond a gradient boosted model that already uses lagged latency and queueing features. The rules for support, failure and inconclusive results were fixed before any data was opened. The first test runs on public datasets. The stage entropy is reserved for operator logs in Phase 1.
 
 Stage timing and percentile latency are ordinary engineering practice. What is proposed here is a shared written definition, the entropy figures, and the privacy rules, packaged for comparison across operators. The standard has no standing until operators or the regulator adopt it, and the predictive value of the entropy figures is not yet known.
@@ -174,7 +174,7 @@ Residual risks that remain after these controls: conversion cost and delay durin
 | Protocol team contact | Kevin Ansong, kevinansong101@gmail.com | Confirmed |
 
 * Any change to the protocol after approval needs written agreement from the operator and the regulator.
-* Declaration of interests and funding: the work has no external funding as at 2 November 2026. The author is the founder of LastStop, a web based vendor directory, and holds no interest in any payment operator named in this document.
+* Declaration of interests and funding: the work has no external funding as at 18 November 2026. The author holds no interest in any payment operator named in this document.
 * Licences: code is released under the MIT licence and the paper under CC BY 4.0.
 * Tools and assistance. This work was developed by Kevin Ansong with AI assistance (Claude, by Anthropic) for drafting, code and test construction. Kevin Ansong directs the project and is responsible for every claim. All code, tests and results are open and can be rerun by anyone.
 
