@@ -1,0 +1,27 @@
+{
+ "files": 28,
+ "windows_compared": 8064,
+ "windows_identical": 8064,
+ "windows_different": 0,
+ "total_count_difference": 0,
+ "engine_completed": 24769919,
+ "independent_completed": 24769919,
+ "engine_unresolved": 385239,
+ "independent_unresolved": 385239,
+ "events_processed": 124234834,
+ "anomalies": 0,
+ "reasons": {
+  "unknown_transaction": 0,
+  "skipped_or_repeated_stage": 0,
+  "time_backwards": 0,
+  "duplicate_start": 0,
+  "replayed_transaction": 0,
+  "nonfinite_timestamp": 0,
+  "invalid_code": 0,
+  "invalid_retries": 0
+ },
+ "seconds": 417.4,
+ "worst_windows": []
+}
+
+MATCH: the engine's end to end histograms equal the independent calculation in every window.
