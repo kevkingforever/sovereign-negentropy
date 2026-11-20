@@ -2,7 +2,7 @@
 title: "Passive Friction Measurement Pilot in Ghana's Digital Payment Corridors"
 subtitle: "Technical Annex, shared by all cover notes"
 author: "Kevin Ansong, Independent Researcher"
-date: "Version 1.5, 18 November 2026. Status: proposal for review, not endorsed by any institution."
+date: "Version 1.6, 20 November 2026. Status: proposal for review, not endorsed by any institution."
 ---
 
 ## 1. Summary
@@ -83,11 +83,13 @@ Phase 1 does not depend on the paper being right. It produces measurements of se
 
 ### 3.6 Validation of the measurement path
 
-The repository contains a reference pipeline in the telemetry folder, written in the Python standard library, with three tests that anyone can rerun.
+The repository contains a reference pipeline in the telemetry folder, written in the Python standard library, with four tests that anyone can rerun.
 
 * Correctness: 22 of 22 self checks pass on synthetic data with known answers. The streaming histograms equal a batch computation exactly, stage quantiles recover the known lognormal truth within 8 percent, retry and failure totals equal the injected totals, windows and individual stage figures under 50 contributing transactions are suppressed, duplicate and replayed transaction identifiers are rejected, abandoned transactions expire (including at the end of a batch or stream, through flush and advance_watermark) and old windows are evicted so memory stays bounded, rejected events never move the expiration clock, durations above the histogram range are counted and flagged, and the source imports only the standard library. The checks test the reference code. They are not a privacy or security review.
 * Cost per event: 0.95 to 1.35 microseconds per event from 50,000 to 3,200,000 events, so the cost does not grow with history. Memory is bounded by transactions in flight.
 * Locking: on PostgreSQL 16 with four writers at 800 transactions per second for 30 seconds, five repetitions each, the read only snapshot reader caused no lock waits beyond those between writers, and no deadlocks. The few waits recorded were writers meeting each other, at the same level with and without the pipeline. The 99th percentile write latency was 3.33 ms with the pipeline and 3.20 ms without it (medians over five runs, pipeline version 0.2). A control reader that deliberately held a table lock raised the 99th percentile to about 160 ms, which shows the test detects locking when it occurs.
+
+* Real data cross check: on 20 November 2026 the pipeline was run on 124,234,834 events from 25,155,158 public Ethereum transactions (28 days). Its end to end delay histograms were compared with an independent calculation using the same bins. All 8,064 five minute windows were identical, the completed count (24,769,919) and the unresolved count (385,239) matched, and no event was rejected. The data have two timestamps only, so stage durations, retries, failures and queues were not exercised. The bins are shared by both calculations, so the check tests the streaming bookkeeping and not the bin design.
 
 Limits: the load is synthetic and ran on one shared two core machine. These tests show the design takes no write locks and has a constant per event cost. They do not predict the behaviour of any operator's production system, so the first task of Phase 1 is to repeat the locking test on the operator's own replica.
 
@@ -174,7 +176,7 @@ Residual risks that remain after these controls: conversion cost and delay durin
 | Protocol team contact | Kevin Ansong, kevinansong101@gmail.com | Confirmed |
 
 * Any change to the protocol after approval needs written agreement from the operator and the regulator.
-* Declaration of interests and funding: the work has no external funding as at 18 November 2026. The author holds no interest in any payment operator named in this document.
+* Declaration of interests and funding: the work has no external funding as at 20 November 2026. The author holds no interest in any payment operator named in this document.
 * Licences: code is released under the MIT licence and the paper under CC BY 4.0.
 * Tools and assistance. This work was developed by Kevin Ansong with AI assistance (Claude, by Anthropic) for drafting, code and test construction. Kevin Ansong directs the project and is responsible for every claim. All code, tests and results are open and can be rerun by anyone.
 
