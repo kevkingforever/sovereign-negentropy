@@ -44,6 +44,23 @@ Lock test, 250 transactions per second, three repetitions of 20 seconds, median 
 
 Table lock waits appeared only in the control. This was run by the author, so it shows the result repeats on a second machine. It is not an independent run.
 
+## Cross check on real Ethereum data, 20 November 2026 (run by the author)
+
+Script: engine_crosscheck.py. Notebook and results: results/. The 28 days of public Ethereum data (dataset D2, 25,155,158 transactions) were fed to this pipeline as lifecycle events: received at the arrival time, then the four later stage events at the inclusion time. Completion before arrival plus 1 ms was set to arrival plus 1 ms, as in Amendment A1.1. The end to end histogram of every five minute window was compared with an independent numpy calculation that uses the same bins and books each delay in the window of its completion time.
+
+| Item | Pipeline | Independent |
+|:---|---:|---:|
+| Windows compared | 8,064 | 8,064 |
+| Windows with identical histograms | 8,064 | |
+| Completed transactions | 24,769,919 | 24,769,919 |
+| Unresolved transactions | 385,239 | 385,239 |
+| Events processed | 124,234,834 | |
+| Events rejected as anomalies | 0 | |
+
+Result: match in every window. The run took 417 seconds on Google Colab, including reading the files, so it is not a figure for cost per event.
+
+What this shows: the streaming bookkeeping (window assignment, open transaction table, expiry, counting) is correct on 25 million real records. What it does not show: stage durations, retries, failures, webhooks and queue length, because the dataset has two timestamps only; and the choice of bins, because both calculations use the same bin formula.
+
 ## Limits
 
 The load is synthetic. It ran on a single shared machine with two cores. The tests show that the pipeline takes no write locks and did not slow writers in this workload and has a constant cost per event. They do not show how any particular production system behaves. Repeat the lock test on your own replica before relying on it.
