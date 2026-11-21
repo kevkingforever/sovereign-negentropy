@@ -2,7 +2,7 @@
 title: "Passive Friction Measurement Pilot in Ghana's Digital Payment Corridors"
 subtitle: "Technical Annex, shared by all cover notes"
 author: "Kevin Ansong, Independent Researcher"
-date: "Version 1.6, 20 November 2026. Status: proposal for review, not endorsed by any institution."
+date: "Version 1.7, 21 November 2026. Status: proposal for review, not endorsed by any institution."
 ---
 
 ## 1. Summary
@@ -11,7 +11,7 @@ The request is for cooperation to run a 30 day, read only measurement of settlem
 
 The outputs are a baseline friction report for the operator and, with the operator's consent, aggregate public data. Later phases are conditional and are not part of this request.
 
-The work is led by Kevin Ansong, Independent Researcher. It is open source, and every result will be published whatever it shows.
+The work is led by Kevin Ansong, Independent Researcher. It is open source. The outcome of each registered condition is published whatever it shows, and operator specific figures are shared on terms agreed with the operator and the Bank of Ghana. The public repository holds the measurement engine and, separately, the theoretical research. Phase 1 concerns the measurement engine only.
 
 ### 1.1 What is proposed: one open standard and one registered test
 
@@ -73,7 +73,7 @@ Phase 1 does not depend on the paper being right. It produces measurements of se
 * An analysis under the Phase 1 pre registration, filed before collection starts.
 * With the operator's consent, a public release of aggregate metrics.
 * The operator may review the report for factual accuracy and confidentiality for 30 days before publication. The operator has no veto over the findings.
-* Results are published whatever they show.
+* The outcome of each registered condition (Feasible, New and Comparable) is published whatever it shows. Operator specific figures are released only on terms agreed with the operator and the Bank of Ghana.
 
 ### 3.5 Resource limits and stop rules for Phase 1
 
@@ -160,7 +160,7 @@ Residual risks that remain after these controls: conversion cost and delay durin
 
 * The first tests are fixed in the pre registration (version 1.1). They state what counts as support, failure and an inconclusive result.
 * An evaluator independent of the author reviews the Phase 1 results. The evaluator is to be designated through a University of Ghana or external peer review track.
-* Code, definitions and aggregate results are published in the open repository. Deviations from the registration are logged and labelled.
+* Code and definitions are published in the open repository, and aggregate results are published on the terms in section 3.4. Deviations from the registration are logged and labelled.
 * The entropy predictor was not supported on 15 November 2026. The paper is being revised to say so, within 30 days of that result.
 
 ## 7. Team and governance
@@ -176,7 +176,7 @@ Residual risks that remain after these controls: conversion cost and delay durin
 | Protocol team contact | Kevin Ansong, kevinansong101@gmail.com | Confirmed |
 
 * Any change to the protocol after approval needs written agreement from the operator and the regulator.
-* Declaration of interests and funding: the work has no external funding as at 20 November 2026. The author holds no interest in any payment operator named in this document.
+* Declaration of interests and funding: the work has no external funding as at 21 November 2026. The author holds no interest in any payment operator named in this document.
 * Licences: code is released under the MIT licence and the paper under CC BY 4.0.
 * Tools and assistance. This work was developed by Kevin Ansong with AI assistance (Claude, by Anthropic) for drafting, code and test construction. Kevin Ansong directs the project and is responsible for every claim. All code, tests and results are open and can be rerun by anyone.
 
